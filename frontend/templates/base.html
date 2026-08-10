@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}WaitWise - Intelligent Dynamic Queue System{% endblock %}</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bbdffc',
+                            300: '#7cc2f9',
+                            400: '#36a2f5',
+                            500: '#0c85e2',
+                            600: '#0267bc',
+                            700: '#035298',
+                            800: '#07467d',
+                            900: '#0c3b69',
+                            950: '#082545',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Socket.IO Client -->
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.45);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .custom-glow {
+            box-shadow: 0 0 40px -10px rgba(12, 133, 226, 0.3);
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="flex flex-col h-full bg-slate-950">
+    <!-- Navigation -->
+    <nav class="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="{{ url_for('main.index') }}" class="flex items-center space-x-2">
+                        <div class="bg-brand-500 text-white p-2 rounded-lg shadow-lg custom-glow">
+                            <i class="fa-solid fa-layer-group text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">WaitWise</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Nav Items -->
+                <div class="hidden md:flex items-center space-x-4">
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.is_staff() %}
+                            <a href="{{ url_for('admin.dashboard') }}" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-2">
+                                <i class="fa-solid fa-chart-line"></i>
+                                <span>Admin Panel</span>
+                            </a>
+                        {% endif %}
+                        <a href="{{ url_for('user.dashboard') }}" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-2">
+                            <i class="fa-solid fa-user-circle"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="{{ url_for('queue.list_queues') }}" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-2">
+                            <i class="fa-solid fa-list-ol"></i>
+                            <span>Join Queue</span>
+                        </a>
+                        <a href="{{ url_for('user.history') }}" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-2">
+                            <i class="fa-solid fa-history"></i>
+                            <span>History</span>
+                        </a>
+                        <div class="h-6 w-px bg-slate-800 mx-2"></div>
+                        <a href="{{ url_for('auth.logout') }}" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-md flex items-center space-x-2">
+                            <i class="fa-solid fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('queue.list_queues') }}" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Browse Queues</a>
+                        <a href="{{ url_for('auth.login') }}" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">Login</a>
+                        <a href="{{ url_for('auth.register') }}" class="bg-brand-600 hover:bg-brand-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-lg shadow-brand-600/30">Get Started</a>
+                    {% endif %}
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-400 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 border-b border-slate-800 bg-slate-950">
+            <div class="flex flex-col space-y-2">
+                {% if current_user.is_authenticated %}
+                    {% if current_user.is_staff() %}
+                        <a href="{{ url_for('admin.dashboard') }}" class="text-slate-300 hover:text-white py-2 rounded-md text-base font-medium flex items-center space-x-2">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>Admin Panel</span>
+                        </a>
+                    {% endif %}
+                    <a href="{{ url_for('user.dashboard') }}" class="text-slate-300 hover:text-white py-2 rounded-md text-base font-medium flex items-center space-x-2">
+                        <i class="fa-solid fa-user-circle"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="{{ url_for('queue.list_queues') }}" class="text-slate-300 hover:text-white py-2 rounded-md text-base font-medium flex items-center space-x-2">
+                        <i class="fa-solid fa-list-ol"></i>
+                        <span>Join Queue</span>
+                    </a>
+                    <a href="{{ url_for('user.history') }}" class="text-slate-300 hover:text-white py-2 rounded-md text-base font-medium flex items-center space-x-2">
+                        <i class="fa-solid fa-history"></i>
+                        <span>History</span>
+                    </a>
+                    <a href="{{ url_for('auth.logout') }}" class="bg-slate-800 text-center text-white py-2.5 rounded-lg text-base font-medium transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('queue.list_queues') }}" class="text-slate-300 hover:text-white py-2 rounded-md text-base font-medium">Browse Queues</a>
+                    <a href="{{ url_for('auth.login') }}" class="text-slate-300 hover:text-white py-2 rounded-md text-base font-medium">Login</a>
+                    <a href="{{ url_for('auth.register') }}" class="bg-brand-600 hover:bg-brand-500 text-center text-white py-2.5 rounded-lg text-base font-medium transition shadow-lg">Get Started</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% set bg_color = 'bg-red-950/50 border-red-800 text-red-300' %}
+                    {% if category == 'success' %}
+                        {% set bg_color = 'bg-emerald-950/50 border-emerald-800 text-emerald-300' %}
+                    {% elif category == 'warning' %}
+                        {% set bg_color = 'bg-amber-950/50 border-amber-800 text-amber-300' %}
+                    {% elif category == 'info' %}
+                        {% set bg_color = 'bg-blue-950/50 border-blue-800 text-blue-300' %}
+                    {% endif %}
+                    <div class="p-4 rounded-xl border {{ bg_color }} mb-4 flex items-center justify-between shadow-lg" role="alert">
+                        <div class="flex items-center space-x-2">
+                            {% if category == 'success' %}
+                                <i class="fa-solid fa-circle-check"></i>
+                            {% elif category == 'danger' or category == 'error' %}
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            {% else %}
+                                <i class="fa-solid fa-circle-info"></i>
+                            {% endif %}
+                            <span class="text-sm font-medium">{{ message }}</span>
+                        </div>
+                        <button type="button" class="text-slate-400 hover:text-slate-100 focus:outline-none" onclick="this.parentElement.remove()">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 bg-slate-950 text-slate-400 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-layer-group text-brand-500"></i>
+                <span class="font-bold text-white">WaitWise</span>
+                <span>&copy; 2026. All rights reserved.</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-slate-200">Privacy Policy</a>
+                <a href="#" class="hover:text-slate-200">Terms of Service</a>
+                <a href="#" class="hover:text-slate-200">Contact Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Socket.IO & Core JS -->
+    <script>
+        // Set up mobile menu toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Initialize Socket.IO connection
+        const socket = io();
+        
+        // Handle global socket events
+        socket.on('connect', () => {
+            console.log('Socket.IO connection established.');
+            // Join user room if logged in
+            {% if current_user.is_authenticated %}
+                socket.emit('join_user', { user_id: {{ current_user.id }} });
+            {% endif %}
+        });
+
+        // Room-based user notification event handler
+        socket.on('notification_created', (notification) => {
+            console.log('New notification received:', notification);
+            // Trigger browser in-app alert or push notification
+            if (window.showInAppNotification) {
+                window.showInAppNotification(notification);
+            }
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Operations Analytics - WaitWise{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="mb-8">
+        <h2 class="text-3xl font-extrabold text-white">Operations Analytics</h2>
+        <p class="text-slate-400 text-sm mt-1">Review operational performance metrics and hourly queue traffic distributions.</p>
+    </div>
+    
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Completed Today</span>
+            <span class="text-3xl font-extrabold text-emerald-400">{{ metrics.completed_today }}</span>
+        </div>
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Avg Waiting Time</span>
+            <span class="text-3xl font-extrabold text-brand-400">{{ metrics.avg_wait_time }} <span class="text-xs font-normal">min</span></span>
+        </div>
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Avg Service Time</span>
+            <span class="text-3xl font-extrabold text-white">{{ metrics.avg_service_time }} <span class="text-xs font-normal">min</span></span>
+        </div>
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Skipped / Cancelled</span>
+            <span class="text-3xl font-extrabold text-amber-500">{{ metrics.skipped_today + metrics.cancelled_today }}</span>
+        </div>
+    </div>
+    
+    <!-- Hourly traffic Chart -->
+    <div class="p-8 rounded-2xl glass-panel border border-slate-900 shadow-xl mb-8">
+        <h3 class="text-base font-bold text-white mb-6 flex items-center space-x-2">
+            <i class="fa-solid fa-chart-line text-brand-500"></i>
+            <span>Hourly Queue Activity (Today)</span>
+        </h3>
+        <div class="h-80 w-full relative">
+            <canvas id="hourlyTrafficChart"></canvas>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- ChartJS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const hourlyData = {{ hourly_counts|tojson }};
+    const ctx = document.getElementById('hourlyTrafficChart').getContext('2d');
+    
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Array.from({length: 24}, (_, i) => `${i.toString().padStart(2, '0')}:00`),
+            datasets: [{
+                label: 'Tickets Issued',
+                data: hourlyData,
+                backgroundColor: 'rgba(12, 133, 226, 0.45)',
+                borderColor: 'rgba(12, 133, 226, 1)',
+                borderWidth: 1.5,
+                borderRadius: 6,
+                hoverBackgroundColor: 'rgba(12, 133, 226, 0.7)'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)'
+                    },
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.4)',
+                        stepSize: 1
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.4)',
+                        maxRotation: 45,
+                        minRotation: 45
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

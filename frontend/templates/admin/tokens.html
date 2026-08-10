@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Token Logs - WaitWise{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="mb-8">
+        <h2 class="text-3xl font-extrabold text-white">Token Operations Logs</h2>
+        <p class="text-slate-400 text-sm mt-1">Audit log of all digital tickets issued and their corresponding states.</p>
+    </div>
+    
+    <div class="p-6 rounded-2xl glass-panel border border-slate-900 shadow-xl">
+        {% if tokens %}
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-slate-400">
+                    <thead class="text-xs text-slate-500 uppercase border-b border-slate-900">
+                        <tr>
+                            <th class="py-4 px-6">ID</th>
+                            <th class="py-4 px-6">Token</th>
+                            <th class="py-4 px-6">Queue</th>
+                            <th class="py-4 px-6">User</th>
+                            <th class="py-4 px-6">Status</th>
+                            <th class="py-4 px-6">Created At</th>
+                            <th class="py-4 px-6">Called At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in tokens %}
+                            <tr class="border-b border-slate-900 hover:bg-slate-900/10 transition">
+                                <td class="py-4 px-6">{{ t.id }}</td>
+                                <td class="py-4 px-6 font-bold text-white">{{ t.formatted_token() }}</td>
+                                <td class="py-4 px-6 text-white">{{ t.queue.name }}</td>
+                                <td class="py-4 px-6">{{ t.user.name }}</td>
+                                <td class="py-4 px-6">
+                                    {% set badge = 'bg-slate-900 border-slate-800 text-slate-400' %}
+                                    {% if t.status == 'WAITING' %}
+                                        {% set badge = 'bg-brand-500/10 border-brand-500/20 text-brand-400' %}
+                                    {% elif t.status in ['CALLED', 'SERVING'] %}
+                                        {% set badge = 'bg-emerald-950/40 border-emerald-900/60 text-emerald-400' %}
+                                    {% elif t.status == 'COMPLETED' %}
+                                        {% set badge = 'bg-slate-900 border-slate-900 text-slate-500' %}
+                                    {% elif t.status == 'CANCELLED' %}
+                                        {% set badge = 'bg-red-950/40 border-red-900/60 text-red-400' %}
+                                    {% endif %}
+                                    <span class="px-2 py-0.5 border text-[10px] font-semibold rounded {{ badge }}">
+                                        {{ t.status }}
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-xs">{{ t.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                                <td class="py-4 px-6 text-xs">
+                                    {% if t.called_at %}
+                                        {{ t.called_at.strftime('%H:%M:%S') }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-slate-500 text-center py-12 text-sm">No token records found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

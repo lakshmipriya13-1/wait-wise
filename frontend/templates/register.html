@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Register - WaitWise{% endblock %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center px-4 py-8 relative">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(12,133,226,0.05)_0%,transparent_70%)]"></div>
+    <div class="relative w-full max-w-md p-8 rounded-2xl glass-card border border-slate-800 shadow-2xl">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-extrabold text-white">Create Account</h2>
+            <p class="text-slate-400 text-sm mt-2">Sign up to get digital tokens and view wait time estimations.</p>
+        </div>
+        
+        <form method="POST" action="{{ url_for('auth.register') }}" class="space-y-5">
+            <div>
+                <label for="name" class="block text-sm font-semibold text-slate-300 mb-2">Full Name</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <input type="text" name="name" id="name" required placeholder="John Doe" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 text-sm">
+                </div>
+            </div>
+            
+            <div>
+                <label for="email" class="block text-sm font-semibold text-slate-300 mb-2">Email Address</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fa-solid fa-envelope"></i>
+                    </span>
+                    <input type="email" name="email" id="email" required placeholder="you@example.com" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 text-sm">
+                </div>
+            </div>
+            
+            <div>
+                <label for="phone" class="block text-sm font-semibold text-slate-300 mb-2">Phone Number</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fa-solid fa-phone"></i>
+                    </span>
+                    <input type="text" name="phone" id="phone" placeholder="+1 (555) 000-0000" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 text-sm">
+                </div>
+            </div>
+            
+            <div>
+                <label for="password" class="block text-sm font-semibold text-slate-300 mb-2">Password</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+                    <input type="password" name="password" id="password" required placeholder="Min 6 characters" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 text-sm">
+                </div>
+            </div>
+
+            <div>
+                <label for="role" class="block text-sm font-semibold text-slate-300 mb-2">Account Role (Testing Allowed)</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fa-solid fa-users-gear"></i>
+                    </span>
+                    <select name="role" id="role" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-brand-500 text-sm">
+                        <option value="USER" selected>USER (Standard Customer)</option>
+                        <option value="STAFF">STAFF (Queue Operator)</option>
+                        <option value="ADMIN">ADMIN (System Manager)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 px-4 rounded-xl transition shadow-lg shadow-brand-600/30 flex items-center justify-center space-x-2">
+                <span>Sign Up</span>
+                <i class="fa-solid fa-user-plus"></i>
+            </button>
+        </form>
+        
+        <div class="text-center mt-6 text-sm text-slate-400">
+            Already have an account? 
+            <a href="{{ url_for('auth.login') }}" class="text-brand-400 hover:text-brand-300 font-semibold transition">Log in</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

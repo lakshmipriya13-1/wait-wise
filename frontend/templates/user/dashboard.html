@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+
+{% block title %}User Dashboard - WaitWise{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left & Center columns: Active Token & Queue Joining -->
+        <div class="lg:col-span-2 space-y-8">
+            
+            <!-- Active Token Card -->
+            {% if active_token %}
+                <div class="p-8 rounded-2xl glass-panel relative overflow-hidden border border-brand-500/20 shadow-2xl custom-glow">
+                    <!-- Glow background accent -->
+                    <div class="absolute -right-16 -top-16 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl"></div>
+                    
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-brand-500/10 text-brand-400 uppercase border border-brand-500/20">
+                                <i class="fa-solid fa-signal text-[10px] mr-1"></i> Live Tracking
+                            </span>
+                            <h2 class="text-2xl font-bold text-white mt-3">{{ active_token.queue.name }}</h2>
+                            <p class="text-xs text-slate-400 mt-1">{{ active_token.queue.organization.name }} &bull; {{ active_token.queue.service.name }}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-900 border border-slate-800 text-slate-300">
+                                Status: <span class="ml-1 text-emerald-400 font-semibold">{{ active_token.queue.status }}</span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Dynamic counters grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 py-6 border-y border-slate-900">
+                        <div class="text-center p-4 bg-slate-900/30 rounded-xl border border-slate-900">
+                            <span class="text-xs text-slate-400 block mb-1">MY TOKEN</span>
+                            <span class="text-3xl font-extrabold text-brand-400 tracking-tight" id="live-token-num">{{ active_token.formatted_token() }}</span>
+                        </div>
+                        
+                        <div class="text-center p-4 bg-slate-900/30 rounded-xl border border-slate-900">
+                            <span class="text-xs text-slate-400 block mb-1">NOW SERVING</span>
+                            <span class="text-3xl font-extrabold text-white tracking-tight" id="live-serving-num">
+                                {% if active_token.queue.current_token_number > 0 %}
+                                    T-{{ "%03d"|format(active_token.queue.current_token_number) }}
+                                {% else %}
+                                    None
+                                {% endif %}
+                            </span>
+                        </div>
+                        
+                        <div class="text-center p-4 bg-slate-900/30 rounded-xl border border-slate-900">
+                            <span class="text-xs text-slate-400 block mb-1">PEOPLE AHEAD</span>
+                            <span class="text-3xl font-extrabold text-white tracking-tight" id="live-ahead-count">{{ people_ahead }}</span>
+                        </div>
+                        
+                        <div class="text-center p-4 bg-slate-900/30 rounded-xl border border-slate-900">
+                            <span class="text-xs text-slate-400 block mb-1">ESTIMATED WAIT</span>
+                            <span class="text-3xl font-extrabold text-brand-400 tracking-tight" id="live-wait-time">{{ active_token.estimated_wait_minutes }} <span class="text-xs font-normal">min</span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress indicator bar -->
+                    <div class="mt-6">
+                        <div class="flex justify-between text-xs text-slate-400 mb-2">
+                            <span>Queue Progress</span>
+                            <span id="live-progress-pct">Active</span>
+                        </div>
+                        <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden">
+                            <div id="live-progress-bar" class="bg-gradient-to-r from-brand-600 to-blue-400 h-2.5 rounded-full transition-all duration-500" style="width: 25%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row justify-between items-center mt-8 pt-6 border-t border-slate-900 space-y-4 sm:space-y-0">
+                        <a href="{{ url_for('user.token_details', token_id=active_token.id) }}" class="text-brand-400 hover:text-brand-300 font-semibold text-sm transition flex items-center space-x-1.5">
+                            <i class="fa-solid fa-expand"></i>
+                            <span>Open Dedicated Live View</span>
+                        </a>
+                        
+                        <!-- Cancel Button Form -->
+                        <form action="{{ url_for('api.cancel_queue_token', token_id=active_token.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel your token?');">
+                            <button type="submit" class="bg-red-950/40 hover:bg-red-900/40 text-red-400 border border-red-900/60 font-semibold px-4 py-2 rounded-xl text-xs transition flex items-center space-x-1.5">
+                                <i class="fa-solid fa-ban"></i>
+                                <span>Cancel My Token</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <div class="p-8 rounded-2xl glass-panel text-center border border-slate-800 shadow-xl py-12">
+                    <div class="text-slate-600 text-5xl mb-4">
+                        <i class="fa-solid fa-ticket-simple"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">No Active Token</h3>
+                    <p class="text-slate-400 text-sm max-w-sm mx-auto mb-6">You aren't in any queue right now. Browse organizations and services to get a digital token.</p>
+                    <a href="{{ url_for('queue.list_queues') }}" class="bg-brand-600 hover:bg-brand-500 text-white font-semibold px-6 py-3 rounded-xl transition shadow-lg shadow-brand-600/30 flex items-center justify-center space-x-2 inline-flex">
+                        <i class="fa-solid fa-list-ol"></i>
+                        <span>Browse & Join Queue</span>
+                    </a>
+                </div>
+            {% endif %}
+            
+            <!-- Queue Browsing Quick List -->
+            <div class="p-6 rounded-2xl glass-card border border-slate-900 shadow-xl">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-building text-brand-500 text-sm"></i>
+                    <span>Quick Join Queue</span>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {% for org in organizations[:4] %}
+                        <div class="p-4 rounded-xl bg-slate-950 border border-slate-900 hover:border-slate-800 transition flex justify-between items-center">
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">{{ org.name }}</h4>
+                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800 uppercase">{{ org.organization_type }}</span>
+                            </div>
+                            <a href="{{ url_for('queue.list_queues', org_id=org.id) }}" class="text-brand-400 hover:text-brand-300 text-xs font-semibold flex items-center space-x-1">
+                                <span>Browse</span>
+                                <i class="fa-solid fa-angle-right"></i>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('queue.list_queues') }}" class="text-xs text-slate-400 hover:text-slate-300 font-semibold transition">View All Organizations &rarr;</a>
+                </div>
+            </div>
+            
+            <!-- History section -->
+            <div class="p-6 rounded-2xl glass-card border border-slate-900 shadow-xl">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-clock-rotate-left text-brand-500 text-sm"></i>
+                    <span>Recent History</span>
+                </h3>
+                {% if history %}
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-400">
+                            <thead class="text-xs text-slate-500 uppercase border-b border-slate-900">
+                                <tr>
+                                    <th scope="col" class="py-3 px-4">Queue</th>
+                                    <th scope="col" class="py-3 px-4">Token</th>
+                                    <th scope="col" class="py-3 px-4">Status</th>
+                                    <th scope="col" class="py-3 px-4">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in history %}
+                                    <tr class="border-b border-slate-900 hover:bg-slate-900/20 transition">
+                                        <td class="py-3 px-4 font-semibold text-white">{{ item.queue.name }}</td>
+                                        <td class="py-3 px-4">{{ item.formatted_token() }}</td>
+                                        <td class="py-3 px-4">
+                                            {% set color = 'bg-slate-900 border-slate-800 text-slate-400' %}
+                                            {% if item.status == 'COMPLETED' %}
+                                                {% set color = 'bg-emerald-950/40 border-emerald-900/60 text-emerald-400' %}
+                                            {% elif item.status == 'CANCELLED' %}
+                                                {% set color = 'bg-red-950/40 border-red-900/60 text-red-400' %}
+                                            {% endif %}
+                                            <span class="px-2 py-0.5 border text-xs font-semibold rounded {{ color }}">{{ item.status }}</span>
+                                        </td>
+                                        <td class="py-3 px-4 text-xs">{{ item.created_at.strftime('%Y-%m-%d') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-sm text-slate-500 text-center py-4">No recent history items found.</p>
+                {% endif %}
+            </div>
+
+        </div>
+        
+        <!-- Right Column: Notifications & AI chatbot widget -->
+        <div class="space-y-8">
+            
+            <!-- Notifications Card -->
+            <div class="p-6 rounded-2xl glass-card border border-slate-900 shadow-xl">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center justify-between">
+                    <span class="flex items-center space-x-2">
+                        <i class="fa-solid fa-bell text-brand-500 text-sm"></i>
+                        <span>Recent Notifications</span>
+                    </span>
+                </h3>
+                <div class="space-y-3 max-h-60 overflow-y-auto pr-1" id="notifications-list">
+                    {% if notifications %}
+                        {% for notif in notifications %}
+                            <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-900 text-xs">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-white">{{ notif.title }}</span>
+                                    <span class="text-[10px] text-slate-500">{{ notif.created_at.strftime('%H:%M') }}</span>
+                                </div>
+                                <p class="text-slate-400 line-clamp-2 leading-relaxed">{{ notif.message }}</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-sm text-slate-500 text-center py-4" id="no-notifications-placeholder">No notifications yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- AI Chatbot Assistant Widget -->
+            <div class="p-6 rounded-2xl glass-card border border-slate-900 shadow-xl flex flex-col h-[400px]">
+                <h3 class="text-lg font-bold text-white mb-3 flex items-center justify-between">
+                    <span class="flex items-center space-x-2">
+                        <i class="fa-solid fa-robot text-brand-500 text-sm"></i>
+                        <span>Ask WaitWise AI</span>
+                    </span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-brand-500/10 border border-brand-500/20 text-brand-400 uppercase font-semibold">Gemma / Mistral</span>
+                </h3>
+                
+                <!-- Chat messages log -->
+                <div id="ai-chat-messages" class="flex-grow overflow-y-auto mb-3 space-y-3 pr-1 text-xs">
+                    <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300">
+                        Hello! I am your AI assistant. Ask me questions like:
+                        <ul class="list-disc list-inside mt-2 space-y-1 text-brand-400">
+                            <li>"When should I come back?"</li>
+                            <li>"What is my current waiting time?"</li>
+                            <li>"What services are available?"</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Chat input -->
+                <form id="ai-chat-form" class="flex space-x-2">
+                    {% if active_token %}
+                        <input type="hidden" id="ai-token-id" value="{{ active_token.id }}">
+                    {% endif %}
+                    <input type="text" id="ai-chat-input" placeholder="Type your query..." class="flex-grow bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 text-xs">
+                    <button type="submit" class="bg-brand-600 hover:bg-brand-500 text-white p-2.5 rounded-xl transition flex items-center justify-center">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </form>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Live update of active token via socket if active token exists
+    {% if active_token %}
+        const activeQueueId = {{ active_token.queue_id }};
+        const activeTokenNum = {{ active_token.token_number }};
+        
+        socket.on('connect', () => {
+            // Subscribe to queue updates room
+            socket.emit('join_queue', { queue_id: activeQueueId });
+        });
+        
+        socket.on('queue_updated', (data) => {
+            if (data.queue_id === activeQueueId) {
+                console.log("Live token queue update received: ", data);
+                
+                // Update currently serving token number
+                const servingNumSpan = document.getElementById('live-serving-num');
+                if (servingNumSpan) {
+                    servingNumSpan.innerText = data.current_serving;
+                }
+                
+                // Update queue status badge
+                const statusBadge = document.querySelector('[class*="Status:"] span');
+                if (statusBadge) {
+                    statusBadge.innerText = data.status;
+                }
+            }
+        });
+        
+        // Listen to personal token updates (like cancellation, skip, call)
+        socket.on('token_called', (token) => {
+            if (token.id === {{ active_token.id }}) {
+                window.location.reload(); // Reload to refresh statuses & show full called page
+            }
+        });
+        socket.on('token_skipped', (token) => {
+            if (token.id === {{ active_token.id }}) {
+                window.location.reload();
+            }
+        });
+        socket.on('token_cancelled', (token) => {
+            if (token.id === {{ active_token.id }}) {
+                window.location.reload();
+            }
+        });
+        socket.on('token_completed', (token) => {
+            if (token.id === {{ active_token.id }}) {
+                window.location.reload();
+            }
+        });
+        
+        // Polling loop to check position and wait times
+        function fetchTokenStatus() {
+            fetch(`/api/tokens/{{ active_token.id }}`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    const data = res.data;
+                    document.getElementById('live-ahead-count').innerText = data.people_ahead;
+                    document.getElementById('live-wait-time').innerHTML = `${data.estimated_wait_minutes} <span class="text-xs font-normal">min</span>`;
+                    
+                    // Update progress bar width based on position
+                    const ahead = data.people_ahead;
+                    const pct = Math.max(5, Math.min(100, 100 - (ahead * 10)));
+                    document.getElementById('live-progress-bar').style.width = `${pct}%`;
+                    document.getElementById('live-progress-pct').innerText = ahead === 0 ? "It's your turn!" : `${ahead} ahead`;
+                }
+            });
+        }
+        
+        // Run immediately and then every 20 seconds
+        fetchTokenStatus();
+        setInterval(fetchTokenStatus, 20000);
+    {% endif %}
+</script>
+<script src="{{ url_for('static', filename='js/ai.js') }}"></script>
+{% endblock %}

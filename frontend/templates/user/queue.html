@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Browse Queues - WaitWise{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-white tracking-tight">Browse Service Queues</h2>
+        <p class="text-slate-400 text-sm mt-2">Select an organization to view available departments and services.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <!-- Organizations Sidebar -->
+        <div class="md:col-span-1 space-y-3">
+            <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">Organizations</h3>
+            <div class="space-y-2">
+                {% if organizations %}
+                    {% for org in organizations %}
+                        {% set active_class = 'border-brand-500/20 bg-brand-500/10 text-brand-400 font-semibold' if selected_org and selected_org.id == org.id else 'border-slate-900 bg-slate-950 text-slate-400 hover:border-slate-800 hover:text-white' %}
+                        <a href="{{ url_for('queue.list_queues', org_id=org.id) }}" class="block p-4 rounded-xl border {{ active_class }} text-sm transition">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-building"></i>
+                                <span>{{ org.name }}</span>
+                            </div>
+                            <span class="text-[9px] block text-slate-500 mt-1 uppercase">{{ org.organization_type }}</span>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-xs text-slate-500">No organizations available.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Queues Listing Section -->
+        <div class="md:col-span-3 space-y-6">
+            {% if selected_org %}
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">{{ selected_org.name }}</h3>
+                        <p class="text-xs text-slate-400 mt-0.5"><i class="fa-solid fa-map-marker-alt"></i> {{ selected_org.address }}</p>
+                    </div>
+                </div>
+                
+                {% if queues %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {% for queue in queues %}
+                            <div class="p-6 rounded-2xl glass-card border border-slate-900 flex flex-col justify-between hover:border-slate-800 transition">
+                                <div>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="px-2 py-0.5 rounded text-[10px] bg-slate-900 text-slate-400 border border-slate-800 uppercase font-semibold">
+                                            {{ queue.service.name }}
+                                        </span>
+                                        {% set status_color = 'bg-emerald-950/40 border-emerald-900/60 text-emerald-400' %}
+                                        {% if queue.status == 'PAUSED' %}
+                                            {% set status_color = 'bg-amber-950/40 border-amber-800/60 text-amber-400' %}
+                                        {% elif queue.status == 'CLOSED' %}
+                                            {% set status_color = 'bg-red-950/40 border-red-900/60 text-red-400' %}
+                                        {% endif %}
+                                        <span class="px-2 py-0.5 border rounded-full text-[10px] font-semibold uppercase tracking-wider {{ status_color }}">
+                                            {{ queue.status }}
+                                        </span>
+                                    </div>
+                                    
+                                    <h4 class="text-lg font-bold text-white mb-2">{{ queue.name }}</h4>
+                                    <p class="text-xs text-slate-400 mb-6 leading-relaxed">{{ queue.service.description }}</p>
+                                    
+                                    <div class="grid grid-cols-2 gap-4 py-4 border-t border-slate-900 text-xs text-slate-400 mb-6">
+                                        <div>
+                                            <span class="block mb-1 text-[10px] text-slate-500 uppercase">Avg Service Time</span>
+                                            <span class="text-sm font-semibold text-white">{{ queue.estimated_service_time }} minutes</span>
+                                        </div>
+                                        <div>
+                                            <span class="block mb-1 text-[10px] text-slate-500 uppercase">Currently Serving</span>
+                                            <span class="text-sm font-semibold text-white">
+                                                {% if queue.current_token_number > 0 %}
+                                                    T-{{ "%03d"|format(queue.current_token_number) }}
+                                                {% else %}
+                                                    None
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                {% if queue.status == 'OPEN' %}
+                                    <form action="{{ url_for('queue.join_queue', queue_id=queue.id) }}" method="POST">
+                                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3 rounded-xl transition text-xs flex items-center justify-center space-x-1">
+                                            <i class="fa-solid fa-plus-circle"></i>
+                                            <span>Get Digital Token</span>
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <button class="w-full bg-slate-900 border border-slate-800 text-slate-600 font-semibold py-3 rounded-xl text-xs flex items-center justify-center space-x-1 cursor-not-allowed" disabled>
+                                        <i class="fa-solid fa-lock"></i>
+                                        <span>Queue Unavailable ({{ queue.status }})</span>
+                                    </button>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="p-8 rounded-xl bg-slate-950 border border-slate-900 text-center py-12">
+                        <p class="text-slate-500 text-sm">No queues set up for this organization yet.</p>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="p-8 rounded-2xl glass-card border border-slate-900 text-center py-16 flex flex-col items-center justify-center">
+                    <div class="text-slate-700 text-5xl mb-4">
+                        <i class="fa-solid fa-hand-pointer"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Select an Organization</h3>
+                    <p class="text-slate-500 text-xs max-w-xs leading-relaxed">Choose an organization from the left sidebar to view its active queues and get tokens.</p>
+                </div>
+            {% endif %}
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

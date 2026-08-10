@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Login - WaitWise{% endblock %}
+
+{% block content %}
+<div class="min-h-[75vh] flex items-center justify-center px-4 relative">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(12,133,226,0.05)_0%,transparent_70%)]"></div>
+    <div class="relative w-full max-w-md p-8 rounded-2xl glass-card border border-slate-800 shadow-2xl">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-extrabold text-white">Welcome Back</h2>
+            <p class="text-slate-400 text-sm mt-2">Log in to track your tokens and join queues.</p>
+        </div>
+        
+        <form method="POST" action="{{ url_for('auth.login') }}" class="space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-semibold text-slate-300 mb-2">Email Address</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fa-solid fa-envelope"></i>
+                    </span>
+                    <input type="email" name="email" id="email" required placeholder="you@example.com" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 text-sm">
+                </div>
+            </div>
+            
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <label for="password" class="block text-sm font-semibold text-slate-300">Password</label>
+                </div>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+                    <input type="password" name="password" id="password" required placeholder="••••••••" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 text-sm">
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-between text-sm">
+                <div class="flex items-center">
+                    <input type="checkbox" name="remember" id="remember" class="h-4 w-4 rounded border-slate-800 bg-slate-950 text-brand-600 focus:ring-brand-500 focus:ring-offset-slate-950">
+                    <label for="remember" class="ml-2 block text-slate-400">Remember me</label>
+                </div>
+            </div>
+            
+            <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 px-4 rounded-xl transition shadow-lg shadow-brand-600/30 flex items-center justify-center space-x-2">
+                <span>Log In</span>
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </button>
+        </form>
+        
+        <div class="text-center mt-6 text-sm text-slate-400">
+            Don't have an account? 
+            <a href="{{ url_for('auth.register') }}" class="text-brand-400 hover:text-brand-300 font-semibold transition">Create account</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

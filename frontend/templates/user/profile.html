@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - WaitWise{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto px-4 py-12 relative">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(12,133,226,0.04)_0%,transparent_70%)]"></div>
+    
+    <div class="mb-8 relative text-center">
+        <h2 class="text-3xl font-extrabold text-white">Profile Settings</h2>
+        <p class="text-slate-400 text-sm mt-1">Manage your account information and preferences.</p>
+    </div>
+    
+    <div class="relative p-8 rounded-2xl glass-panel border border-slate-900 shadow-xl">
+        <form method="POST" action="{{ url_for('user.profile') }}" class="space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-semibold text-slate-400 mb-2">Email Address (Cannot change)</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-600">
+                        <i class="fa-solid fa-envelope"></i>
+                    </span>
+                    <input type="email" id="email" value="{{ current_user.email }}" class="w-full bg-slate-950/40 border border-slate-900 rounded-xl pl-10 pr-4 py-3 text-slate-500 cursor-not-allowed text-sm" disabled>
+                </div>
+            </div>
+            
+            <div>
+                <label for="name" class="block text-sm font-semibold text-slate-300 mb-2">Full Name</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <input type="text" name="name" id="name" required value="{{ current_user.name }}" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-brand-500 text-sm">
+                </div>
+            </div>
+            
+            <div>
+                <label for="phone" class="block text-sm font-semibold text-slate-300 mb-2">Phone Number</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fa-solid fa-phone"></i>
+                    </span>
+                    <input type="text" name="phone" id="phone" value="{{ current_user.phone or '' }}" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-brand-500 text-sm">
+                </div>
+            </div>
+            
+            <div>
+                <label for="password" class="block text-sm font-semibold text-slate-300 mb-2">Change Password (Leave empty to keep current)</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+                    <input type="password" name="password" id="password" placeholder="New Password (min 6 characters)" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-brand-500 text-sm">
+                </div>
+            </div>
+            
+            <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 px-4 rounded-xl transition shadow-lg shadow-brand-600/30 flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>Save Changes</span>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

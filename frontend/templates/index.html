@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}WaitWise - Smart Digital Queue & Token Management{% endblock %}
+
+{% block content %}
+<div class="relative overflow-hidden pt-12 pb-24 lg:pt-20 lg:pb-32 flex items-center">
+    <!-- Background grid decoration -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Hero Tagline -->
+        <span class="inline-flex items-center space-x-2 bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-6">
+            <i class="fa-solid fa-sparkles"></i>
+            <span>Intelligent Queue Management</span>
+        </span>
+        
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+            Don't wait in the queue.<br>
+            <span class="bg-gradient-to-r from-brand-400 to-blue-500 bg-clip-text text-transparent">Let the queue wait for you.</span>
+        </h1>
+        
+        <p class="max-w-2xl mx-auto text-lg sm:text-xl text-slate-400 mb-10 font-normal">
+            WaitWise is a smart digital token system that estimates real-time waiting, tracks your queue position live, and notifies you when it's your turn.
+        </p>
+        
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-20">
+            <a href="{{ url_for('queue.list_queues') }}" class="w-full sm:w-auto bg-brand-600 hover:bg-brand-500 text-white font-semibold px-8 py-4 rounded-xl shadow-lg shadow-brand-600/30 hover:scale-105 transition flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-list-ol"></i>
+                <span>Join a Queue</span>
+            </a>
+            
+            {% if not current_user.is_authenticated %}
+                <a href="{{ url_for('auth.login') }}" class="w-full sm:w-auto bg-slate-900 border border-slate-800 text-slate-200 hover:bg-slate-800 font-semibold px-8 py-4 rounded-xl hover:text-white transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-sign-in-alt"></i>
+                    <span>Log In</span>
+                </a>
+            {% else %}
+                <a href="{{ url_for('user.dashboard') }}" class="w-full sm:w-auto bg-slate-900 border border-slate-800 text-slate-200 hover:bg-slate-800 font-semibold px-8 py-4 rounded-xl hover:text-white transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Go to Dashboard</span>
+                </a>
+            {% endif %}
+        </div>
+        
+        <!-- Live status check simple tool for anonymous check -->
+        <div class="max-w-md mx-auto p-6 rounded-2xl glass-card text-left shadow-2xl relative mb-24 border border-slate-800">
+            <h3 class="text-lg font-bold text-white mb-2 flex items-center space-x-2">
+                <i class="fa-solid fa-ticket-simple text-brand-500"></i>
+                <span>Check Digital Token Status</span>
+            </h3>
+            <p class="text-sm text-slate-400 mb-4">Enter a token ID to view real-time estimates instantly.</p>
+            <form id="token-check-form" class="space-y-3">
+                <div class="relative">
+                    <input type="number" id="check-token-id" placeholder="e.g. 101" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 text-sm" required>
+                </div>
+                <button type="submit" class="w-full bg-brand-600/20 border border-brand-500/40 text-brand-400 hover:bg-brand-600/30 font-semibold px-4 py-3 rounded-xl transition text-sm flex items-center justify-center space-x-2">
+                    <span>Check Live Status</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+            <div id="check-result" class="hidden mt-4 p-4 rounded-xl bg-slate-900 border border-slate-800 text-sm">
+                <!-- Result dynamically populated by app.js -->
+            </div>
+        </div>
+
+        <!-- Feature Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="p-8 rounded-2xl glass-card text-left border border-slate-900/50 hover:border-slate-800 transition">
+                <div class="bg-brand-500/10 border border-brand-500/20 text-brand-400 p-3 rounded-xl inline-block mb-4 shadow-sm">
+                    <i class="fa-solid fa-ticket text-xl"></i>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Digital Tokens</h4>
+                <p class="text-slate-400 text-sm">Skip physical lines. Grab your token instantly via browser without waiting on-premise.</p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="p-8 rounded-2xl glass-card text-left border border-slate-900/50 hover:border-slate-800 transition">
+                <div class="bg-blue-500/10 border border-blue-500/20 text-blue-400 p-3 rounded-xl inline-block mb-4 shadow-sm">
+                    <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Dynamic Estimations</h4>
+                <p class="text-slate-400 text-sm">Advanced time formulas forecast precise waiting times by checking staff speed and load.</p>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="p-8 rounded-2xl glass-card text-left border border-slate-900/50 hover:border-slate-800 transition">
+                <div class="bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 p-3 rounded-xl inline-block mb-4 shadow-sm">
+                    <i class="fa-solid fa-bell text-xl"></i>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Real-Time Sync</h4>
+                <p class="text-slate-400 text-sm">Receive immediate websocket updates when the queue advances or when you are skipped.</p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="p-8 rounded-2xl glass-card text-left border border-slate-900/50 hover:border-slate-800 transition">
+                <div class="bg-teal-500/10 border border-teal-500/20 text-teal-400 p-3 rounded-xl inline-block mb-4 shadow-sm">
+                    <i class="fa-solid fa-robot text-xl"></i>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">AI Queue Assistant</h4>
+                <p class="text-slate-400 text-sm">Ask WaitWise AI when to return, average delays, or general queue status insights.</p>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="p-8 rounded-2xl glass-card text-left border border-slate-900/50 hover:border-slate-800 transition">
+                <div class="bg-violet-500/10 border border-violet-500/20 text-violet-400 p-3 rounded-xl inline-block mb-4 shadow-sm">
+                    <i class="fa-solid fa-sliders text-xl"></i>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Admin Controls</h4>
+                <p class="text-slate-400 text-sm">Manage counters, call next, complete, or skip tokens with quick single-click commands.</p>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="p-8 rounded-2xl glass-card text-left border border-slate-900/50 hover:border-slate-800 transition">
+                <div class="bg-pink-500/10 border border-pink-500/20 text-pink-400 p-3 rounded-xl inline-block mb-4 shadow-sm">
+                    <i class="fa-solid fa-chart-simple text-xl"></i>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Analytics & Charts</h4>
+                <p class="text-slate-400 text-sm">Analyze busy times, utilization rates, and completion data through clear dashboards.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Handle Token Status Form Check
+    const checkForm = document.getElementById('token-check-form');
+    const checkInput = document.getElementById('check-token-id');
+    const checkResult = document.getElementById('check-result');
+    
+    if (checkForm) {
+        checkForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const tokenId = checkInput.value;
+            
+            fetch(`/api/tokens/${tokenId}/check`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(res => {
+                checkResult.classList.remove('hidden');
+                if (res.success) {
+                    const data = res.data;
+                    checkResult.innerHTML = `
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-slate-400">Token Status</span>
+                            <span class="px-2 py-0.5 rounded text-xs font-semibold bg-brand-500/20 text-brand-400 uppercase">${data.status}</span>
+                        </div>
+                        <div class="text-lg font-bold text-white mb-1">Number: ${data.formatted_token}</div>
+                        <div class="text-sm text-slate-300">People Ahead: ${data.people_ahead}</div>
+                        <div class="text-sm text-slate-300">Est. Wait Time: ${data.estimated_wait_minutes} mins</div>
+                    `;
+                } else {
+                    checkResult.innerHTML = `
+                        <div class="text-red-400 font-medium">Error</div>
+                        <div class="text-xs text-slate-400 mt-1">${res.error.message}</div>
+                    `;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                checkResult.classList.remove('hidden');
+                checkResult.innerHTML = `<div class="text-red-400 text-sm">Failed to connect to backend server.</div>`;
+            });
+        });
+    }
+</script>
+{% endblock %}

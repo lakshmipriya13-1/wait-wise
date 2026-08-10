@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaitWise Public Display - {{ queue.name }}</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Socket.IO Client -->
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+        }
+        .glow-text {
+            text-shadow: 0 0 30px rgba(12, 133, 226, 0.6);
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col justify-between p-8 bg-slate-950 overflow-hidden">
+    <!-- Header -->
+    <div class="flex justify-between items-center border-b border-slate-900 pb-6">
+        <div class="flex items-center space-x-3">
+            <div class="bg-blue-600 text-white p-3.5 rounded-2xl shadow-lg shadow-blue-500/20">
+                <i class="fa-solid fa-layer-group text-2xl"></i>
+            </div>
+            <div>
+                <h1 class="text-3xl font-black tracking-tight text-white">WaitWise</h1>
+                <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Queue status board</p>
+            </div>
+        </div>
+        
+        <div class="text-right">
+            <h2 class="text-xl font-bold text-slate-350">{{ queue.name }}</h2>
+            <p class="text-xs text-slate-500 mt-0.5">{{ queue.organization.name }} &bull; {{ queue.service.name }}</p>
+        </div>
+    </div>
+    
+    <!-- Central Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 my-8 flex-grow items-center">
+        <!-- Now Serving (Left 2 cols) -->
+        <div class="lg:col-span-2 bg-slate-900/40 border border-slate-900 p-12 rounded-3xl text-center flex flex-col justify-center h-full max-h-[60vh] shadow-2xl relative">
+            <div class="absolute top-6 left-6 flex items-center space-x-2">
+                <span class="h-3.5 w-3.5 rounded-full bg-emerald-500 animate-ping"></span>
+                <span class="text-xs text-slate-400 font-bold uppercase tracking-widest">Live Display</span>
+            </div>
+            
+            <span class="text-sm font-bold tracking-widest text-slate-500 uppercase mb-4 block">NOW SERVING</span>
+            
+            <div class="text-[12rem] font-black text-blue-500 tracking-tighter leading-none glow-text my-4" id="tv-serving-num">
+                {% if serving_token %}
+                    {{ serving_token.formatted_token() }}
+                {% else %}
+                    -
+                {% endif %}
+            </div>
+            
+            <div class="text-sm text-slate-400 font-semibold" id="tv-serving-name-container">
+                {% if serving_token %}
+                    Proceed to counter: <span class="text-white">{{ serving_token.user.name }}</span>
+                {% else %}
+                    No active token called.
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Next list (Right col) -->
+        <div class="bg-slate-900/40 border border-slate-900 p-8 rounded-3xl flex flex-col h-full max-h-[60vh] shadow-2xl justify-between">
+            <div>
+                <h3 class="text-base font-bold text-slate-400 mb-6 uppercase tracking-wider flex items-center space-x-2 border-b border-slate-900 pb-3">
+                    <i class="fa-solid fa-list-ol text-blue-500"></i>
+                    <span>UPCOMING NEXT</span>
+                </h3>
+                
+                <div class="space-y-4" id="tv-next-list">
+                    {% if next_tokens %}
+                        {% for tk in next_tokens %}
+                            <div class="p-4 rounded-2xl bg-slate-950 border border-slate-900 flex justify-between items-center">
+                                <span class="text-2xl font-extrabold text-white">{{ tk.formatted_token() }}</span>
+                                <span class="text-xs text-slate-500">Customer: {{ tk.user.name }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-slate-500 text-sm text-center py-12">No upcoming tickets.</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="p-4 bg-slate-950 border border-slate-900 rounded-2xl mt-4 flex items-center space-x-3 text-xs text-slate-500 leading-normal">
+                <i class="fa-solid fa-qrcode text-lg text-blue-500"></i>
+                <span>Scan QR or login online to view your personal ticket position and wait details.</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="flex flex-col md:flex-row justify-between items-center text-xs text-slate-600 border-t border-slate-900 pt-6">
+        <div>Please watch this screen. A notification chime will play when the turn advances.</div>
+        <div class="flex items-center space-x-2 mt-2 md:mt-0">
+            <span class="font-bold text-slate-500">WaitWise</span>
+            <span>&bull;</span>
+            <span id="live-time">12:00 PM</span>
+        </div>
+    </div>
+    
+    <!-- Audio notification chime helper -->
+    <audio id="chime-audio" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>
+
+    <script>
+        const queueId = {{ queue.id }};
+        const socket = io();
+        
+        socket.on('connect', () => {
+            console.log('Public display connected to websocket.');
+            socket.emit('join_queue', { queue_id: queueId });
+        });
+        
+        socket.on('queue_updated', (data) => {
+            if (data.queue_id === queueId) {
+                console.log("WebSocket update on TV Display:", data);
+                // Perform quick update check
+                // We reload next list & current serving. Let's do page reload to ensure template updates correctly, 
+                // or we can refresh elements. Let's play the chime and reload the page for bulletproof reliability!
+                playChime();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
+        });
+
+        function playChime() {
+            try {
+                const audio = document.getElementById('chime-audio');
+                if (audio) {
+                    audio.play();
+                }
+            } catch(e) {
+                console.log("Chime blocked by browser policy.");
+            }
+        }
+        
+        // Display running clock
+        function updateTime() {
+            const timeSpan = document.getElementById('live-time');
+            if (timeSpan) {
+                timeSpan.innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            }
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>

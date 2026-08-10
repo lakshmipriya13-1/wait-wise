@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}{{ queue.name }} - WaitWise{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 py-12">
+    <!-- Breadcrumbs -->
+    <div class="mb-6 flex items-center space-x-2 text-sm text-slate-400">
+        <a href="{{ url_for('user.dashboard') }}" class="hover:text-white transition">Dashboard</a>
+        <i class="fa-solid fa-angle-right text-[10px]"></i>
+        <a href="{{ url_for('queue.list_queues') }}" class="hover:text-white transition">Browse Queues</a>
+        <i class="fa-solid fa-angle-right text-[10px]"></i>
+        <span>{{ queue.name }}</span>
+    </div>
+    
+    <div class="p-8 rounded-2xl glass-panel border border-slate-900 shadow-2xl relative overflow-hidden">
+        <!-- Accent Glow -->
+        <div class="absolute -right-20 -top-20 w-48 h-48 bg-brand-500/5 rounded-full blur-3xl"></div>
+        
+        <div class="flex justify-between items-start mb-6">
+            <div>
+                <span class="px-2.5 py-1 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs font-semibold uppercase tracking-wider">
+                    Queue Specifications
+                </span>
+                <h2 class="text-3xl font-extrabold text-white mt-4">{{ queue.name }}</h2>
+                <p class="text-sm text-slate-400 mt-1">{{ queue.organization.name }} &bull; {{ queue.service.name }}</p>
+            </div>
+            <div>
+                {% set badge = 'bg-emerald-950/40 border-emerald-900/60 text-emerald-400' %}
+                {% if queue.status == 'PAUSED' %}
+                    {% set badge = 'bg-amber-950/40 border-amber-800/60 text-amber-400' %}
+                {% elif queue.status == 'CLOSED' %}
+                    {% set badge = 'bg-red-950/40 border-red-900/60 text-red-400' %}
+                {% endif %}
+                <span class="px-3 py-1 border text-xs font-bold rounded-full uppercase tracking-wider {{ badge }}">
+                    {{ queue.status }}
+                </span>
+            </div>
+        </div>
+        
+        <p class="text-slate-400 text-sm mb-8 leading-relaxed">{{ queue.service.description }}</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 py-6 border-y border-slate-900 mb-8">
+            <div class="text-center p-4 bg-slate-950 border border-slate-900 rounded-xl">
+                <span class="text-xs text-slate-500 block mb-1">CURRENTLY SERVING</span>
+                <span class="text-2xl font-extrabold text-white tracking-tight" id="live-serving">
+                    {% if queue.current_token_number > 0 %}
+                        T-{{ "%03d"|format(queue.current_token_number) }}
+                    {% else %}
+                        None
+                    {% endif %}
+                </span>
+            </div>
+            
+            <div class="text-center p-4 bg-slate-950 border border-slate-900 rounded-xl">
+                <span class="text-xs text-slate-500 block mb-1">WAITING USERS</span>
+                <span class="text-2xl font-extrabold text-white tracking-tight" id="live-waiting-count">{{ waiting_count }}</span>
+            </div>
+            
+            <div class="text-center p-4 bg-slate-950 border border-slate-900 rounded-xl">
+                <span class="text-xs text-slate-500 block mb-1">ESTIMATED SERVICE TIME</span>
+                <span class="text-2xl font-extrabold text-brand-400 tracking-tight">{{ queue.estimated_service_time }} <span class="text-xs font-normal">min / user</span></span>
+            </div>
+        </div>
+        
+        {% if active_token %}
+            <div class="p-4 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-300 text-sm flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>You already have active ticket <strong class="text-white">{{ active_token.formatted_token() }}</strong> in this queue.</span>
+                </div>
+                <a href="{{ url_for('user.token_details', token_id=active_token.id) }}" class="text-white hover:underline font-bold text-xs">View Ticket &rarr;</a>
+            </div>
+        {% else %}
+            {% if queue.status == 'OPEN' %}
+                <form action="{{ url_for('queue.join_queue', queue_id=queue.id) }}" method="POST" class="flex justify-end">
+                    <button type="submit" class="bg-brand-600 hover:bg-brand-500 text-white font-bold py-3.5 px-6 rounded-xl transition shadow-lg shadow-brand-600/30 flex items-center space-x-2">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        <span>Get Digital Ticket Token</span>
+                    </button>
+                </form>
+            {% else %}
+                <div class="p-4 rounded-xl bg-red-950/30 border border-red-900/40 text-red-400 text-sm text-center">
+                    <i class="fa-solid fa-circle-exclamation mr-1"></i> Joining is currently locked because this queue status is <strong>{{ queue.status }}</strong>.
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const qid = {{ queue.id }};
+    socket.on('connect', () => {
+        socket.emit('join_queue', { queue_id: qid });
+    });
+    socket.on('queue_updated', (data) => {
+        if (data.queue_id === qid) {
+            document.getElementById('live-serving').innerText = data.current_serving;
+            document.getElementById('live-waiting-count').innerText = data.waiting_count;
+            // Status badge refresh
+            const badge = document.querySelector('[class*="Status:"] span') || document.querySelector('[class*="bg-emerald-950/40"]');
+            if (badge) {
+                badge.innerText = data.status;
+            }
+        }
+    });
+</script>
+{% endblock %}

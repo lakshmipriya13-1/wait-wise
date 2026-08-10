@@ -1,0 +1,447 @@
+============================================================
+WAITWISE
+Intelligent Dynamic Queue & Token Management System
+============================================================
+
+1. PROJECT OVERVIEW
+------------------------------------------------------------
+
+WaitWise is an intelligent digital queue and token management
+system designed to reduce physical waiting lines and improve
+the customer experience.
+
+Instead of standing in a long queue, users can register,
+generate a digital token, monitor their queue position, and
+receive an estimated waiting time.
+
+The system also provides administrators with tools to manage
+queues, counters, users, and token status in real time.
+
+
+2. PROBLEM STATEMENT
+------------------------------------------------------------
+
+Traditional queue systems require people to physically stand
+in lines. This can result in:
+
+- Long waiting times
+- Crowded waiting areas
+- Lack of information about queue position
+- Poor queue management
+- Unpredictable waiting time
+- Manual work for staff
+- Customer dissatisfaction
+
+WaitWise solves these problems using a digital queue system.
+
+
+3. PROPOSED SOLUTION
+------------------------------------------------------------
+
+WaitWise provides a centralized digital platform where:
+
+1. Users create an account.
+2. Users browse available queues.
+3. Users select a service.
+4. Users generate a digital token.
+5. The system assigns a token number.
+6. Users can monitor their queue position.
+7. The system calculates estimated waiting time.
+8. Staff can call the next token.
+9. Queue status is updated in real time.
+10. Administrators can manage the entire system.
+
+
+4. MAIN FEATURES
+------------------------------------------------------------
+
+USER FEATURES
+------------------------------------------------------------
+
+- User registration
+- User login
+- User profile
+- Browse queues
+- Join a queue
+- Digital token generation
+- Token status tracking
+- Queue position tracking
+- Estimated waiting time
+- Real-time queue updates
+- Queue history
+
+
+ADMIN FEATURES
+------------------------------------------------------------
+
+- Admin login
+- Dashboard
+- Create and manage queues
+- Manage service counters
+- View active tokens
+- Call next token
+- Skip token
+- Complete token
+- Cancel token
+- Monitor queue statistics
+- Manage users
+
+
+AI FEATURES
+------------------------------------------------------------
+
+WaitWise can use a local AI model through Ollama.
+
+Current AI model:
+
+Gemma 3:1B
+
+The AI layer can be used for:
+
+- Queue analysis
+- Waiting-time insights
+- Customer assistance
+- Queue recommendations
+- Intelligent responses
+- Operational insights
+
+
+5. TECHNOLOGY STACK
+------------------------------------------------------------
+
+FRONTEND
+------------------------------------------------------------
+
+- HTML
+- CSS
+- JavaScript
+- Jinja2 Templates
+
+
+BACKEND
+------------------------------------------------------------
+
+- Python
+- Flask
+- Flask-SQLAlchemy
+- Flask-Login
+- Flask-Migrate
+- Flask-SocketIO
+
+
+DATABASE
+------------------------------------------------------------
+
+- SQLite for local development
+- PostgreSQL can be used for production
+
+
+REAL-TIME COMMUNICATION
+------------------------------------------------------------
+
+- Flask-SocketIO
+- WebSocket-based updates
+
+
+AI
+------------------------------------------------------------
+
+- Ollama
+- Gemma 3:1B
+
+
+ENVIRONMENT
+------------------------------------------------------------
+
+- Python Virtual Environment
+- python-dotenv
+
+
+6. PROJECT STRUCTURE
+------------------------------------------------------------
+
+wait wise/
+|
+|-- app/
+|   |-- models/
+|   |-- routes/
+|   |-- services/
+|   |-- sockets/
+|   |-- utils/
+|   |-- __init__.py
+|   |-- config.py
+|   |-- extensions.py
+|
+|-- frontend/
+|   |-- static/
+|   |-- templates/
+|
+|-- tests/
+|
+|-- instance/
+|
+|-- venv/
+|
+|-- .env
+|-- .env.example
+|-- .gitignore
+|-- README.md
+|-- requirements.txt
+|-- run.py
+|-- seed.py
+|-- EXPLANATION.txt
+
+
+7. IMPORTANT FILES
+------------------------------------------------------------
+
+app/__init__.py
+    Creates and configures the Flask application.
+
+app/config.py
+    Contains application configuration.
+
+app/extensions.py
+    Initializes Flask extensions such as database,
+    migration, login manager and SocketIO.
+
+app/models/
+    Contains database models.
+
+app/routes/
+    Contains application routes and API endpoints.
+
+app/services/
+    Contains business logic and service functionality.
+
+app/sockets/
+    Contains real-time SocketIO functionality.
+
+frontend/templates/
+    Contains HTML/Jinja2 pages.
+
+frontend/static/
+    Contains CSS, JavaScript and other static files.
+
+seed.py
+    Initializes and inserts sample data into the database.
+
+run.py
+    Starts the WaitWise application.
+
+.env
+    Stores environment variables and local configuration.
+
+
+8. AI CONFIGURATION
+------------------------------------------------------------
+
+WaitWise is currently configured to use Ollama locally.
+
+Example configuration:
+
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=gemma3:1b
+AI_PROVIDER=ollama
+
+Ollama must be running on the local machine.
+
+The installed model is:
+
+gemma3:1b
+
+
+9. HOW TO RUN THE PROJECT
+------------------------------------------------------------
+
+STEP 1:
+Open PowerShell in the WaitWise project directory.
+
+STEP 2:
+Activate the virtual environment:
+
+.\venv\Scripts\Activate.ps1
+
+STEP 3:
+Install dependencies:
+
+pip install -r requirements.txt
+
+STEP 4:
+Check Ollama:
+
+ollama list
+
+STEP 5:
+Run the AI model:
+
+ollama run gemma3:1b
+
+STEP 6:
+Exit Ollama:
+
+/bye
+
+STEP 7:
+Initialize the database:
+
+python seed.py
+
+STEP 8:
+Start WaitWise:
+
+python run.py
+
+STEP 9:
+Open the application in a browser:
+
+http://127.0.0.1:5000
+
+
+10. USER WORKFLOW
+------------------------------------------------------------
+
+User
+  |
+  v
+Create Account
+  |
+  v
+Login
+  |
+  v
+Browse Queues
+  |
+  v
+Select Service
+  |
+  v
+Generate Digital Token
+  |
+  v
+View Queue Position
+  |
+  v
+View Estimated Waiting Time
+  |
+  v
+Receive Queue Updates
+  |
+  v
+Token Called
+  |
+  v
+Service Completed
+
+
+11. ADMIN WORKFLOW
+------------------------------------------------------------
+
+Admin Login
+     |
+     v
+Admin Dashboard
+     |
+     v
+View Active Queues
+     |
+     v
+Monitor Tokens
+     |
+     v
+Call Next Token
+     |
+     v
+Update Token Status
+     |
+     v
+Complete / Skip / Cancel
+     |
+     v
+View Queue Statistics
+
+
+12. BENEFITS
+------------------------------------------------------------
+
+- Reduces physical queues
+- Saves customer time
+- Improves customer experience
+- Provides real-time information
+- Reduces crowding
+- Makes queue management easier
+- Reduces manual work
+- Provides estimated waiting time
+- Supports intelligent queue analysis
+- Can be scaled for multiple services
+
+
+13. POSSIBLE USE CASES
+------------------------------------------------------------
+
+WaitWise can be used in:
+
+- Hospitals
+- Banks
+- Government offices
+- College administration offices
+- Railway reservation centers
+- Clinics
+- Service centers
+- Restaurants
+- Salons
+- Customer support centers
+- Government service counters
+
+
+14. FUTURE ENHANCEMENTS
+------------------------------------------------------------
+
+Future versions can include:
+
+- SMS notifications
+- Email notifications
+- WhatsApp notifications
+- QR-code token generation
+- Mobile application
+- Advanced AI waiting-time prediction
+- Multiple branch support
+- Analytics dashboard
+- Customer feedback
+- Priority queue management
+- Voice notifications
+- Cloud deployment
+- PostgreSQL production database
+- AI-powered queue optimization
+
+
+15. CURRENT PROJECT STATUS
+------------------------------------------------------------
+
+Python environment       : WORKING
+Dependencies             : INSTALLED
+Flask                    : WORKING
+Ollama                   : WORKING
+Gemma 3:1B               : WORKING
+Flask Application        : RUNNING
+Database                 : CONFIGURED
+Frontend                 : WORKING
+Backend                  : WORKING
+Real-time SocketIO       : CONFIGURED
+
+
+16. PROJECT OBJECTIVE
+------------------------------------------------------------
+
+The main objective of WaitWise is to transform traditional
+physical queue systems into an intelligent digital queue
+management platform.
+
+WaitWise allows customers to spend less time waiting in
+physical queues while giving organizations better control
+over their service queues.
+
+
+============================================================
+END OF WAITWISE PROJECT EXPLANATION
+============================================================

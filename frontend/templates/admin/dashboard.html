@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - WaitWise{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 space-y-4 md:space-y-0">
+        <div>
+            <h1 class="text-3xl font-extrabold text-white tracking-tight">Admin Dashboard</h1>
+            <p class="text-slate-400 text-sm mt-1">Real-time monitoring and controls for all service counters.</p>
+        </div>
+        <div class="flex space-x-3">
+            <a href="{{ url_for('admin.queues') }}" class="bg-slate-900 border border-slate-800 text-slate-200 hover:bg-slate-800 px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition">
+                <i class="fa-solid fa-list-ol"></i>
+                <span>Manage Queues</span>
+            </a>
+            <a href="{{ url_for('admin.analytics') }}" class="bg-brand-600 hover:bg-brand-500 text-white px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition shadow-lg shadow-brand-600/20">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Analytics Reports</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Metrics Tiles -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Active Queues</span>
+            <span class="text-3xl font-extrabold text-white">{{ metrics.total_active_queues }}</span>
+        </div>
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Waiting Users</span>
+            <span class="text-3xl font-extrabold text-brand-400">{{ metrics.waiting_users }}</span>
+        </div>
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Currently Serving</span>
+            <span class="text-3xl font-extrabold text-white">{{ metrics.currently_serving_count }}</span>
+        </div>
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Completed Today</span>
+            <span class="text-3xl font-extrabold text-emerald-400">{{ metrics.completed_today }}</span>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Avg Waiting Time</span>
+            <span class="text-3xl font-extrabold text-brand-400">{{ metrics.avg_wait_time }} <span class="text-xs font-normal">min</span></span>
+        </div>
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Avg Service Time</span>
+            <span class="text-3xl font-extrabold text-white">{{ metrics.avg_service_time }} <span class="text-xs font-normal">min</span></span>
+        </div>
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Cancelled Tokens</span>
+            <span class="text-3xl font-extrabold text-red-400">{{ metrics.cancelled_today }}</span>
+        </div>
+        <div class="p-6 rounded-2xl glass-card border border-slate-900">
+            <span class="text-xs text-slate-500 block mb-1 uppercase font-semibold">Skipped Tokens</span>
+            <span class="text-3xl font-extrabold text-amber-400">{{ metrics.skipped_today }}</span>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Queues list for admin controls -->
+        <div class="lg:col-span-2 space-y-6">
+            <div class="p-6 rounded-2xl glass-card border border-slate-900 shadow-xl">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-list-ol text-brand-500 text-sm"></i>
+                    <span>Queue Status Monitor</span>
+                </h3>
+                {% if queues %}
+                    <div class="space-y-4">
+                        {% for queue in queues %}
+                            <div class="p-5 rounded-xl bg-slate-950 border border-slate-900 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0 hover:border-slate-800 transition">
+                                <div>
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <h4 class="text-base font-bold text-white">{{ queue.name }}</h4>
+                                        {% set badge = 'bg-emerald-950/40 border-emerald-900/60 text-emerald-400' %}
+                                        {% if queue.status == 'PAUSED' %}
+                                            {% set badge = 'bg-amber-950/40 border-amber-800/60 text-amber-400' %}
+                                        {% elif queue.status == 'CLOSED' %}
+                                            {% set badge = 'bg-red-950/40 border-red-900/60 text-red-400' %}
+                                        {% endif %}
+                                        <span class="px-2 py-0.5 border rounded-full text-[9px] font-semibold uppercase {{ badge }}">{{ queue.status }}</span>
+                                    </div>
+                                    <span class="text-xs text-slate-500">{{ queue.organization.name }} &bull; {{ queue.service.name }}</span>
+                                </div>
+                                <div class="flex space-x-6 text-center text-xs text-slate-400">
+                                    <div>
+                                        <span class="block text-slate-500 mb-0.5 uppercase text-[9px]">Serving</span>
+                                        <span class="font-bold text-white">
+                                            {% if queue.current_token_number > 0 %}
+                                                T-{{ "%03d"|format(queue.current_token_number) }}
+                                            {% else %}
+                                                None
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    <div class="h-8 w-px bg-slate-900 self-center"></div>
+                                    <div>
+                                        <span class="block text-slate-500 mb-0.5 uppercase text-[9px]">Action</span>
+                                        <a href="{{ url_for('admin.queue_details', queue_id=queue.id) }}" class="text-brand-400 hover:underline font-semibold block mt-0.5">Control Panel &rarr;</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-sm text-slate-500 text-center py-6">No queues initialized. Set up queues in Settings.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Right Column: AI Assistant for Admins -->
+        <div class="space-y-6">
+            <div class="p-6 rounded-2xl glass-card border border-slate-900 shadow-xl flex flex-col h-[480px]">
+                <h3 class="text-lg font-bold text-white mb-3 flex items-center justify-between">
+                    <span class="flex items-center space-x-2">
+                        <i class="fa-solid fa-robot text-brand-500 text-sm"></i>
+                        <span>AI Admin Assistant</span>
+                    </span>
+                    <button id="ai-insight-generate-btn" class="bg-brand-600/20 border border-brand-500/30 text-brand-400 text-[10px] px-2 py-0.5 rounded font-semibold uppercase hover:bg-brand-600/30 transition">
+                        Quick Report
+                    </button>
+                </h3>
+                
+                <div id="ai-chat-messages" class="flex-grow overflow-y-auto mb-3 space-y-3 pr-1 text-xs">
+                    <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300">
+                        Welcome to WaitWise AI Admin. Click "Quick Report" or ask me questions about operational performance, bottlenecks, or queue load optimization.
+                    </div>
+                </div>
+                
+                <form id="ai-admin-chat-form" class="flex space-x-2">
+                    <input type="text" id="ai-chat-input" placeholder="Ask AI Analyst..." class="flex-grow bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 text-xs">
+                    <button type="submit" class="bg-brand-600 hover:bg-brand-500 text-white p-2.5 rounded-xl transition flex items-center justify-center">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Set up Socket listeners to keep stats synced if needed, but standard socket update notifies users
+    // Admin AI chatbot logic
+    const chatForm = document.getElementById('ai-admin-chat-form');
+    const chatInput = document.getElementById('ai-chat-input');
+    const messagesDiv = document.getElementById('ai-chat-messages');
+    const reportBtn = document.getElementById('ai-insight-generate-btn');
+    
+    function appendMessage(sender, text, isError = false) {
+        const msg = document.createElement('div');
+        msg.className = `p-3 rounded-xl border text-xs ${sender === 'user' ? 'bg-brand-950/20 border-brand-900/40 text-brand-300' : isError ? 'bg-red-950/30 border-red-900/40 text-red-400' : 'bg-slate-900/60 border-slate-850 text-slate-300'}`;
+        msg.innerHTML = `<strong>${sender === 'user' ? 'You' : 'WaitWise AI'}:</strong><p class="mt-1 leading-relaxed whitespace-pre-wrap">${text}</p>`;
+        messagesDiv.appendChild(msg);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+    
+    if (chatForm) {
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            appendMessage('user', message);
+            chatInput.value = '';
+            
+            // Add loading block
+            const loading = document.createElement('div');
+            loading.id = 'ai-loading';
+            loading.className = 'text-xs text-slate-500 italic p-1';
+            loading.innerText = 'AI is analyzing operational metrics...';
+            messagesDiv.appendChild(loading);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            fetch('/api/ai/admin-insight', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query: message })
+            })
+            .then(res => res.json())
+            .then(res => {
+                const ld = document.getElementById('ai-loading');
+                if (ld) ld.remove();
+                if (res.success) {
+                    appendMessage('ai', res.data.insight);
+                } else {
+                    appendMessage('ai', res.error.message, true);
+                }
+            })
+            .catch(err => {
+                const ld = document.getElementById('ai-loading');
+                if (ld) ld.remove();
+                appendMessage('ai', 'Connection lost. Failed to fetch response.', true);
+            });
+        });
+    }
+    
+    if (reportBtn) {
+        reportBtn.addEventListener('click', () => {
+            const loading = document.createElement('div');
+            loading.id = 'ai-loading';
+            loading.className = 'text-xs text-slate-500 italic p-1';
+            loading.innerText = 'Generating operations report...';
+            messagesDiv.appendChild(loading);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            fetch('/api/ai/admin-insight', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(res => res.json())
+            .then(res => {
+                const ld = document.getElementById('ai-loading');
+                if (ld) ld.remove();
+                if (res.success) {
+                    appendMessage('ai', res.data.insight);
+                } else {
+                    appendMessage('ai', res.error.message, true);
+                }
+            })
+            .catch(err => {
+                const ld = document.getElementById('ai-loading');
+                if (ld) ld.remove();
+                appendMessage('ai', 'Connection lost.', true);
+            });
+        });
+    }
+</script>
+{% endblock %}

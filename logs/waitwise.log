@@ -1,0 +1,329 @@
+[2026-08-10 22:12:04,774] INFO in queue_socket (Line 8): Client connected: iJ03UHakyGdN6tzsAAAB
+[2026-08-10 22:12:16,966] INFO in queue_socket (Line 12): Client disconnected: iJ03UHakyGdN6tzsAAAB
+[2026-08-10 22:12:17,248] INFO in queue_socket (Line 8): Client connected: PaP8GVVIwBQwbZ1FAAAD
+[2026-08-10 22:12:33,421] INFO in queue_socket (Line 12): Client disconnected: PaP8GVVIwBQwbZ1FAAAD
+[2026-08-10 22:12:33,702] INFO in queue_socket (Line 8): Client connected: m93itKl3Tcw_01BCAAAF
+[2026-08-10 22:12:59,044] INFO in queue_socket (Line 12): Client disconnected: m93itKl3Tcw_01BCAAAF
+[2026-08-10 22:12:59,420] INFO in queue_socket (Line 8): Client connected: akHF80v3_QpGKJLAAAAH
+[2026-08-10 22:13:36,030] INFO in queue_socket (Line 12): Client disconnected: akHF80v3_QpGKJLAAAAH
+[2026-08-10 22:13:36,289] INFO in queue_socket (Line 8): Client connected: vAcnbYZ3z0s2t9xIAAAJ
+[2026-08-10 22:14:33,334] INFO in queue_socket (Line 12): Client disconnected: vAcnbYZ3z0s2t9xIAAAJ
+[2026-08-10 22:14:33,681] INFO in queue_socket (Line 8): Client connected: KLLwqvFmyYJuo4mQAAAL
+[2026-08-10 22:15:19,828] INFO in queue_socket (Line 12): Client disconnected: KLLwqvFmyYJuo4mQAAAL
+[2026-08-10 22:15:20,140] INFO in queue_socket (Line 8): Client connected: K5pQb0CEe6jFxHE8AAAN
+[2026-08-10 22:15:28,512] INFO in queue_socket (Line 12): Client disconnected: K5pQb0CEe6jFxHE8AAAN
+[2026-08-10 22:15:29,038] INFO in queue_socket (Line 8): Client connected: Xtgj2iPFohkni_-oAAAP
+[2026-08-10 22:16:17,304] INFO in queue_socket (Line 12): Client disconnected: Xtgj2iPFohkni_-oAAAP
+[2026-08-10 22:16:17,712] INFO in queue_socket (Line 8): Client connected: MqagwbIEfyIuZ2B2AAAR
+[2026-08-10 22:17:45,809] INFO in queue_socket (Line 12): Client disconnected: MqagwbIEfyIuZ2B2AAAR
+[2026-08-10 22:17:46,043] INFO in auth (Line 52): User registered: priya@test.com as USER
+[2026-08-10 22:17:46,335] INFO in queue_socket (Line 8): Client connected: DGpg43wcHmi5kTQjAAAT
+[2026-08-10 22:18:12,032] INFO in queue_socket (Line 12): Client disconnected: DGpg43wcHmi5kTQjAAAT
+[2026-08-10 22:18:12,262] INFO in auth (Line 86): User logged in: priya@test.com
+[2026-08-10 22:18:12,634] INFO in queue_socket (Line 8): Client connected: oh295dSdQFiEDgtxAAAV
+[2026-08-10 22:18:12,662] INFO in queue_socket (Line 45): User 13 (Client oh295dSdQFiEDgtxAAAV) joined personal room: user_13
+[2026-08-10 22:18:30,818] INFO in queue_socket (Line 12): Client disconnected: oh295dSdQFiEDgtxAAAV
+[2026-08-10 22:18:31,130] INFO in queue_socket (Line 8): Client connected: sFd7s9CyBBf9xD4lAAAX
+[2026-08-10 22:18:31,157] INFO in queue_socket (Line 45): User 13 (Client sFd7s9CyBBf9xD4lAAAX) joined personal room: user_13
+[2026-08-10 22:18:34,452] INFO in queue_socket (Line 12): Client disconnected: sFd7s9CyBBf9xD4lAAAX
+[2026-08-10 22:18:34,842] INFO in queue_socket (Line 8): Client connected: yab2QccC8XFaCIWYAAAZ
+[2026-08-10 22:18:34,863] INFO in queue_socket (Line 45): User 13 (Client yab2QccC8XFaCIWYAAAZ) joined personal room: user_13
+[2026-08-10 22:18:34,872] INFO in queue_socket (Line 23): Client yab2QccC8XFaCIWYAAAZ joined room: queue_1
+[2026-08-10 22:19:03,966] INFO in queue_socket (Line 12): Client disconnected: yab2QccC8XFaCIWYAAAZ
+[2026-08-10 22:19:04,461] INFO in queue_socket (Line 8): Client connected: 5bOFyTABiFn4Ire-AAAb
+[2026-08-10 22:19:04,476] INFO in queue_socket (Line 45): User 13 (Client 5bOFyTABiFn4Ire-AAAb) joined personal room: user_13
+[2026-08-10 22:19:04,484] INFO in queue_socket (Line 23): Client 5bOFyTABiFn4Ire-AAAb joined room: queue_1
+[2026-08-10 22:19:13,467] INFO in queue_socket (Line 12): Client disconnected: 5bOFyTABiFn4Ire-AAAb
+[2026-08-10 22:19:13,636] INFO in api (Line 122): Token 8 cancelled via API
+[2026-08-10 22:19:21,330] INFO in queue_socket (Line 8): Client connected: QL9Qz_Xjq0oTuMQLAAAd
+[2026-08-10 22:19:21,346] INFO in queue_socket (Line 45): User 13 (Client QL9Qz_Xjq0oTuMQLAAAd) joined personal room: user_13
+[2026-08-10 22:19:23,246] INFO in queue_socket (Line 12): Client disconnected: QL9Qz_Xjq0oTuMQLAAAd
+[2026-08-10 22:19:23,778] INFO in queue_socket (Line 8): Client connected: W0vmTRUh8QAY3KdbAAAf
+[2026-08-10 22:19:23,802] INFO in queue_socket (Line 45): User 13 (Client W0vmTRUh8QAY3KdbAAAf) joined personal room: user_13
+[2026-08-10 22:19:23,804] INFO in queue_socket (Line 23): Client W0vmTRUh8QAY3KdbAAAf joined room: queue_3
+[2026-08-10 22:29:34,638] INFO in queue_socket (Line 12): Client disconnected: W0vmTRUh8QAY3KdbAAAf
+[2026-08-10 22:34:01,227] INFO in queue_socket (Line 8): Client connected: sMh2ZzMFDwSx2v2wAAAh
+[2026-08-10 22:34:01,249] INFO in queue_socket (Line 45): User 13 (Client sMh2ZzMFDwSx2v2wAAAh) joined personal room: user_13
+[2026-08-10 22:34:01,251] INFO in queue_socket (Line 23): Client sMh2ZzMFDwSx2v2wAAAh joined room: queue_3
+[2026-08-10 22:34:03,561] INFO in queue_socket (Line 12): Client disconnected: sMh2ZzMFDwSx2v2wAAAh
+[2026-08-10 22:36:58,352] INFO in queue_socket (Line 8): Client connected: o1pQgw79QZ1mgwZ-AAAj
+[2026-08-10 22:36:58,400] INFO in queue_socket (Line 45): User 13 (Client o1pQgw79QZ1mgwZ-AAAj) joined personal room: user_13
+[2026-08-10 22:36:58,403] INFO in queue_socket (Line 23): Client o1pQgw79QZ1mgwZ-AAAj joined room: queue_3
+[2026-08-10 22:37:02,661] INFO in queue_socket (Line 12): Client disconnected: o1pQgw79QZ1mgwZ-AAAj
+[2026-08-10 22:39:30,217] INFO in queue_socket (Line 8): Client connected: 1iOmFV7_hbQ1pOW6AAAm
+[2026-08-10 22:39:30,283] INFO in queue_socket (Line 45): User 13 (Client 1iOmFV7_hbQ1pOW6AAAm) joined personal room: user_13
+[2026-08-10 22:39:30,289] INFO in queue_socket (Line 23): Client 1iOmFV7_hbQ1pOW6AAAm joined room: queue_3
+[2026-08-10 22:39:55,553] INFO in queue_socket (Line 12): Client disconnected: 1iOmFV7_hbQ1pOW6AAAm
+[2026-08-10 22:39:55,846] INFO in api (Line 122): Token 9 cancelled via API
+[2026-08-10 22:40:09,064] INFO in queue_socket (Line 8): Client connected: ZyKr844NWMcVKRzQAAAo
+[2026-08-10 22:40:09,077] INFO in queue_socket (Line 45): User 13 (Client ZyKr844NWMcVKRzQAAAo) joined personal room: user_13
+[2026-08-10 22:40:09,083] INFO in queue_socket (Line 23): Client ZyKr844NWMcVKRzQAAAo joined room: queue_3
+[2026-08-10 23:21:57,038] INFO in queue_socket (Line 12): Client disconnected: ZyKr844NWMcVKRzQAAAo
+[2026-08-10 23:21:57,448] INFO in queue_socket (Line 8): Client connected: TfXcjYVwsOSOtJpOAAAq
+[2026-08-10 23:21:57,474] INFO in queue_socket (Line 45): User 13 (Client TfXcjYVwsOSOtJpOAAAq) joined personal room: user_13
+[2026-08-10 23:21:58,980] INFO in queue_socket (Line 12): Client disconnected: TfXcjYVwsOSOtJpOAAAq
+[2026-08-10 23:21:59,338] INFO in queue_socket (Line 8): Client connected: 9JDSh0wGTNSNpA0rAAAs
+[2026-08-10 23:21:59,368] INFO in queue_socket (Line 45): User 13 (Client 9JDSh0wGTNSNpA0rAAAs) joined personal room: user_13
+[2026-08-10 23:22:05,497] INFO in queue_socket (Line 12): Client disconnected: 9JDSh0wGTNSNpA0rAAAs
+[2026-08-10 23:22:05,818] INFO in queue_socket (Line 8): Client connected: BsZB2Jpc3QQqDBN5AAAu
+[2026-08-10 23:22:05,835] INFO in queue_socket (Line 45): User 13 (Client BsZB2Jpc3QQqDBN5AAAu) joined personal room: user_13
+[2026-08-10 23:22:08,922] INFO in queue_socket (Line 12): Client disconnected: BsZB2Jpc3QQqDBN5AAAu
+[2026-08-10 23:22:09,173] INFO in queue_socket (Line 8): Client connected: O0lAL9IOz09WV7CsAAAw
+[2026-08-10 23:22:09,192] INFO in queue_socket (Line 45): User 13 (Client O0lAL9IOz09WV7CsAAAw) joined personal room: user_13
+[2026-08-10 23:22:12,246] INFO in queue_socket (Line 12): Client disconnected: O0lAL9IOz09WV7CsAAAw
+[2026-08-10 23:22:12,653] INFO in queue_socket (Line 8): Client connected: Cr9ZoPMpI35ycC8uAAAy
+[2026-08-10 23:22:12,687] INFO in queue_socket (Line 45): User 13 (Client Cr9ZoPMpI35ycC8uAAAy) joined personal room: user_13
+[2026-08-10 23:22:13,885] INFO in queue_socket (Line 12): Client disconnected: Cr9ZoPMpI35ycC8uAAAy
+[2026-08-10 23:22:14,134] INFO in queue_socket (Line 8): Client connected: XFdVYa9tJZfjzaplAAA0
+[2026-08-10 23:22:14,153] INFO in queue_socket (Line 45): User 13 (Client XFdVYa9tJZfjzaplAAA0) joined personal room: user_13
+[2026-08-10 23:22:30,397] INFO in queue_socket (Line 12): Client disconnected: XFdVYa9tJZfjzaplAAA0
+[2026-08-10 23:22:30,716] INFO in queue_socket (Line 8): Client connected: nw8cS4hZf--FKuFaAAA2
+[2026-08-10 23:22:30,737] INFO in queue_socket (Line 45): User 13 (Client nw8cS4hZf--FKuFaAAA2) joined personal room: user_13
+[2026-08-10 23:22:33,309] INFO in queue_socket (Line 12): Client disconnected: nw8cS4hZf--FKuFaAAA2
+[2026-08-10 23:22:33,613] INFO in queue_socket (Line 8): Client connected: bOLugI-dq8w-RY6-AAA4
+[2026-08-10 23:22:33,657] INFO in queue_socket (Line 45): User 13 (Client bOLugI-dq8w-RY6-AAA4) joined personal room: user_13
+[2026-08-10 23:27:35,486] INFO in queue_socket (Line 12): Client disconnected: bOLugI-dq8w-RY6-AAA4
+[2026-08-10 23:27:35,522] INFO in auth (Line 101): User logged out: priya@test.com
+[2026-08-10 23:27:35,943] INFO in queue_socket (Line 8): Client connected: JRcvbQX2vOEBv3fYAAA6
+[2026-08-10 23:27:42,232] INFO in queue_socket (Line 12): Client disconnected: JRcvbQX2vOEBv3fYAAA6
+[2026-08-10 23:27:42,464] INFO in auth (Line 86): User logged in: priya@test.com
+[2026-08-10 23:27:42,828] INFO in queue_socket (Line 8): Client connected: dwzzb_InKJG0BWXwAAA8
+[2026-08-10 23:27:42,859] INFO in queue_socket (Line 45): User 13 (Client dwzzb_InKJG0BWXwAAA8) joined personal room: user_13
+[2026-08-10 23:28:01,093] INFO in queue_socket (Line 12): Client disconnected: dwzzb_InKJG0BWXwAAA8
+[2026-08-10 23:28:01,387] INFO in queue_socket (Line 8): Client connected: n3kA4c05zpcpGgMYAAA-
+[2026-08-10 23:28:01,411] INFO in queue_socket (Line 45): User 13 (Client n3kA4c05zpcpGgMYAAA-) joined personal room: user_13
+[2026-08-10 23:28:04,891] INFO in queue_socket (Line 12): Client disconnected: n3kA4c05zpcpGgMYAAA-
+[2026-08-10 23:28:05,247] INFO in queue_socket (Line 8): Client connected: RI2QXLpLQ0-jodzyAABA
+[2026-08-10 23:28:05,270] INFO in queue_socket (Line 45): User 13 (Client RI2QXLpLQ0-jodzyAABA) joined personal room: user_13
+[2026-08-10 23:28:05,275] INFO in queue_socket (Line 23): Client RI2QXLpLQ0-jodzyAABA joined room: queue_1
+[2026-08-10 23:28:33,812] INFO in queue_socket (Line 12): Client disconnected: RI2QXLpLQ0-jodzyAABA
+[2026-08-10 23:28:34,162] INFO in queue_socket (Line 8): Client connected: 472A36I3wxhomujhAABC
+[2026-08-10 23:28:34,175] INFO in queue_socket (Line 45): User 13 (Client 472A36I3wxhomujhAABC) joined personal room: user_13
+[2026-08-10 23:28:34,178] INFO in queue_socket (Line 23): Client 472A36I3wxhomujhAABC joined room: queue_1
+[2026-08-10 23:28:53,971] INFO in queue_socket (Line 12): Client disconnected: 472A36I3wxhomujhAABC
+[2026-08-10 23:28:54,293] INFO in queue_socket (Line 8): Client connected: aYw_Fju2yhmE19t8AABE
+[2026-08-10 23:28:54,321] INFO in queue_socket (Line 45): User 13 (Client aYw_Fju2yhmE19t8AABE) joined personal room: user_13
+[2026-08-10 23:28:59,339] INFO in queue_socket (Line 12): Client disconnected: aYw_Fju2yhmE19t8AABE
+[2026-08-10 23:28:59,669] INFO in queue_socket (Line 8): Client connected: kZ4X7JwgQLOsEIaaAABG
+[2026-08-10 23:28:59,691] INFO in queue_socket (Line 45): User 13 (Client kZ4X7JwgQLOsEIaaAABG) joined personal room: user_13
+[2026-08-10 23:29:04,503] INFO in queue_socket (Line 12): Client disconnected: kZ4X7JwgQLOsEIaaAABG
+[2026-08-10 23:29:04,942] INFO in queue_socket (Line 8): Client connected: oGmwOSV3W9WBp5JOAABI
+[2026-08-10 23:29:04,963] INFO in queue_socket (Line 45): User 13 (Client oGmwOSV3W9WBp5JOAABI) joined personal room: user_13
+[2026-08-10 23:29:04,966] INFO in queue_socket (Line 23): Client oGmwOSV3W9WBp5JOAABI joined room: queue_1
+[2026-08-10 23:29:11,370] INFO in queue_socket (Line 12): Client disconnected: oGmwOSV3W9WBp5JOAABI
+[2026-08-10 23:29:11,762] INFO in queue_socket (Line 8): Client connected: PJ6Gn1l4_V6JcXXyAABK
+[2026-08-10 23:29:11,798] INFO in queue_socket (Line 45): User 13 (Client PJ6Gn1l4_V6JcXXyAABK) joined personal room: user_13
+[2026-08-10 23:29:17,380] INFO in queue_socket (Line 12): Client disconnected: PJ6Gn1l4_V6JcXXyAABK
+[2026-08-10 23:29:17,783] INFO in queue_socket (Line 8): Client connected: HFKu301GK3Zb-sx2AABM
+[2026-08-10 23:29:17,808] INFO in queue_socket (Line 45): User 13 (Client HFKu301GK3Zb-sx2AABM) joined personal room: user_13
+[2026-08-10 23:29:36,792] INFO in queue_socket (Line 12): Client disconnected: HFKu301GK3Zb-sx2AABM
+[2026-08-10 23:29:37,193] INFO in queue_socket (Line 8): Client connected: 74fjYkOGD_2BE_OnAABO
+[2026-08-10 23:29:37,215] INFO in queue_socket (Line 45): User 13 (Client 74fjYkOGD_2BE_OnAABO) joined personal room: user_13
+[2026-08-10 23:29:37,225] INFO in queue_socket (Line 23): Client 74fjYkOGD_2BE_OnAABO joined room: queue_1
+[2026-08-10 23:45:40,756] INFO in queue_socket (Line 12): Client disconnected: 74fjYkOGD_2BE_OnAABO
+[2026-08-10 23:46:05,215] INFO in queue_socket (Line 8): Client connected: uCT59CzlqLEqH-PpAABQ
+[2026-08-10 23:46:05,246] INFO in queue_socket (Line 45): User 13 (Client uCT59CzlqLEqH-PpAABQ) joined personal room: user_13
+[2026-08-10 23:46:05,252] INFO in queue_socket (Line 23): Client uCT59CzlqLEqH-PpAABQ joined room: queue_1
+[2026-08-10 23:48:03,771] INFO in queue_socket (Line 12): Client disconnected: uCT59CzlqLEqH-PpAABQ
+[2026-08-10 23:53:13,203] INFO in queue_socket (Line 8): Client connected: 2L9Gy45Sqa0BpLg8AABS
+[2026-08-10 23:53:13,212] INFO in queue_socket (Line 45): User 13 (Client 2L9Gy45Sqa0BpLg8AABS) joined personal room: user_13
+[2026-08-10 23:53:13,214] INFO in queue_socket (Line 23): Client 2L9Gy45Sqa0BpLg8AABS joined room: queue_1
+[2026-08-10 23:59:11,791] INFO in queue_socket (Line 12): Client disconnected: 2L9Gy45Sqa0BpLg8AABS
+[2026-08-11 00:05:56,754] INFO in queue_socket (Line 8): Client connected: pWgWJ6kYSFtTvW6_AABU
+[2026-08-11 00:05:56,829] INFO in queue_socket (Line 45): User 13 (Client pWgWJ6kYSFtTvW6_AABU) joined personal room: user_13
+[2026-08-11 00:05:56,831] INFO in queue_socket (Line 23): Client pWgWJ6kYSFtTvW6_AABU joined room: queue_1
+[2026-08-11 00:19:13,404] INFO in queue_socket (Line 12): Client disconnected: pWgWJ6kYSFtTvW6_AABU
+[2026-08-11 01:30:01,233] INFO in queue_socket (Line 8): Client connected: WXX0oD4MEhX5SZprAABX
+[2026-08-11 01:30:01,283] INFO in queue_socket (Line 45): User 13 (Client WXX0oD4MEhX5SZprAABX) joined personal room: user_13
+[2026-08-11 01:30:01,285] INFO in queue_socket (Line 23): Client WXX0oD4MEhX5SZprAABX joined room: queue_1
+[2026-08-11 01:30:58,612] INFO in queue_socket (Line 12): Client disconnected: WXX0oD4MEhX5SZprAABX
+[2026-08-11 01:30:58,860] INFO in api (Line 122): Token 10 cancelled via API
+[2026-08-11 01:31:07,538] INFO in queue_socket (Line 8): Client connected: 1YaJGOr5LD75pY-5AABZ
+[2026-08-11 01:31:07,548] INFO in queue_socket (Line 45): User 13 (Client 1YaJGOr5LD75pY-5AABZ) joined personal room: user_13
+[2026-08-11 01:31:07,550] INFO in queue_socket (Line 23): Client 1YaJGOr5LD75pY-5AABZ joined room: queue_1
+[2026-08-11 01:40:50,236] INFO in queue_socket (Line 8): Client connected: GSlT5dynP5LWVqwaAAAB
+[2026-08-11 01:40:50,257] INFO in queue_socket (Line 45): User 13 (Client GSlT5dynP5LWVqwaAAAB) joined personal room: user_13
+[2026-08-11 01:40:50,259] INFO in queue_socket (Line 23): Client GSlT5dynP5LWVqwaAAAB joined room: queue_1
+[2026-08-11 01:43:39,220] INFO in queue_socket (Line 8): Client connected: yO9ZOKfU1Vv0lBezAAAB
+[2026-08-11 01:43:39,234] INFO in queue_socket (Line 45): User 13 (Client yO9ZOKfU1Vv0lBezAAAB) joined personal room: user_13
+[2026-08-11 01:43:39,235] INFO in queue_socket (Line 23): Client yO9ZOKfU1Vv0lBezAAAB joined room: queue_1
+[2026-08-11 01:44:52,229] INFO in queue_socket (Line 8): Client connected: dupThKp8lBHqw4x9AAAB
+[2026-08-11 01:44:52,253] INFO in queue_socket (Line 45): User 13 (Client dupThKp8lBHqw4x9AAAB) joined personal room: user_13
+[2026-08-11 01:44:52,256] INFO in queue_socket (Line 23): Client dupThKp8lBHqw4x9AAAB joined room: queue_1
+[2026-08-11 01:46:24,386] INFO in queue_socket (Line 12): Client disconnected: dupThKp8lBHqw4x9AAAB
+[2026-08-11 01:46:24,915] INFO in queue_socket (Line 8): Client connected: rmZeYDjl2-QAsTJuAAAD
+[2026-08-11 01:46:24,987] INFO in queue_socket (Line 45): User 13 (Client rmZeYDjl2-QAsTJuAAAD) joined personal room: user_13
+[2026-08-11 01:46:27,669] INFO in queue_socket (Line 12): Client disconnected: rmZeYDjl2-QAsTJuAAAD
+[2026-08-11 01:46:28,068] INFO in queue_socket (Line 8): Client connected: 0SThZFLL9-9y5SozAAAF
+[2026-08-11 01:46:28,097] INFO in queue_socket (Line 45): User 13 (Client 0SThZFLL9-9y5SozAAAF) joined personal room: user_13
+[2026-08-11 01:46:29,493] INFO in queue_socket (Line 12): Client disconnected: 0SThZFLL9-9y5SozAAAF
+[2026-08-11 01:46:29,934] INFO in queue_socket (Line 8): Client connected: 3pycH3kAfonkUHAbAAAH
+[2026-08-11 01:46:29,947] INFO in queue_socket (Line 45): User 13 (Client 3pycH3kAfonkUHAbAAAH) joined personal room: user_13
+[2026-08-11 01:46:29,950] INFO in queue_socket (Line 23): Client 3pycH3kAfonkUHAbAAAH joined room: queue_1
+[2026-08-11 01:46:34,124] INFO in queue_socket (Line 12): Client disconnected: 3pycH3kAfonkUHAbAAAH
+[2026-08-11 01:46:34,237] INFO in api (Line 122): Token 11 cancelled via API
+[2026-08-11 01:46:45,232] INFO in queue_socket (Line 8): Client connected: DAredwl6zs1t_a08AAAJ
+[2026-08-11 01:46:45,252] INFO in queue_socket (Line 45): User 13 (Client DAredwl6zs1t_a08AAAJ) joined personal room: user_13
+[2026-08-11 01:46:45,268] INFO in queue_socket (Line 23): Client DAredwl6zs1t_a08AAAJ joined room: queue_1
+[2026-08-11 01:47:54,738] INFO in queue_socket (Line 8): Client connected: plf3At0CKOCTqD31AAAB
+[2026-08-11 01:47:54,753] INFO in queue_socket (Line 45): User 13 (Client plf3At0CKOCTqD31AAAB) joined personal room: user_13
+[2026-08-11 01:47:54,755] INFO in queue_socket (Line 23): Client plf3At0CKOCTqD31AAAB joined room: queue_1
+[2026-08-11 01:55:05,017] INFO in queue_socket (Line 8): Client connected: pkozkfHmmzuPaR-bAAAB
+[2026-08-11 01:55:05,028] INFO in queue_socket (Line 45): User 13 (Client pkozkfHmmzuPaR-bAAAB) joined personal room: user_13
+[2026-08-11 01:55:05,029] INFO in queue_socket (Line 23): Client pkozkfHmmzuPaR-bAAAB joined room: queue_1
+[2026-08-11 01:57:16,342] INFO in queue_socket (Line 8): Client connected: g30J60V2B8mWAK8BAAAD
+[2026-08-11 01:57:16,406] INFO in queue_socket (Line 45): User 13 (Client g30J60V2B8mWAK8BAAAD) joined personal room: user_13
+[2026-08-11 01:57:21,034] INFO in queue_socket (Line 12): Client disconnected: g30J60V2B8mWAK8BAAAD
+[2026-08-11 01:57:21,267] INFO in queue_socket (Line 8): Client connected: xB7mKD5s7DXwYoQ6AAAF
+[2026-08-11 01:57:21,277] INFO in queue_socket (Line 45): User 13 (Client xB7mKD5s7DXwYoQ6AAAF) joined personal room: user_13
+[2026-08-11 01:57:23,021] INFO in queue_socket (Line 12): Client disconnected: xB7mKD5s7DXwYoQ6AAAF
+[2026-08-11 01:57:23,364] INFO in queue_socket (Line 8): Client connected: GVe0I-05kjDY7yn2AAAH
+[2026-08-11 01:57:23,384] INFO in queue_socket (Line 45): User 13 (Client GVe0I-05kjDY7yn2AAAH) joined personal room: user_13
+[2026-08-11 01:57:23,396] INFO in queue_socket (Line 23): Client GVe0I-05kjDY7yn2AAAH joined room: queue_1
+[2026-08-11 01:57:28,272] INFO in queue_socket (Line 12): Client disconnected: GVe0I-05kjDY7yn2AAAH
+[2026-08-11 01:57:28,399] INFO in api (Line 122): Token 12 cancelled via API
+[2026-08-11 01:57:31,284] INFO in queue_socket (Line 12): Client disconnected: pkozkfHmmzuPaR-bAAAB
+[2026-08-11 01:57:54,925] INFO in queue_socket (Line 8): Client connected: Dnr6mMqNrfifZnnxAAAJ
+[2026-08-11 01:57:54,950] INFO in queue_socket (Line 45): User 13 (Client Dnr6mMqNrfifZnnxAAAJ) joined personal room: user_13
+[2026-08-11 01:57:54,952] INFO in queue_socket (Line 23): Client Dnr6mMqNrfifZnnxAAAJ joined room: queue_1
+[2026-08-11 01:58:08,364] INFO in queue_socket (Line 12): Client disconnected: Dnr6mMqNrfifZnnxAAAJ
+[2026-08-11 01:58:08,659] INFO in queue_socket (Line 8): Client connected: 9dniOu59QqEBdi5mAAAL
+[2026-08-11 01:58:08,688] INFO in queue_socket (Line 45): User 13 (Client 9dniOu59QqEBdi5mAAAL) joined personal room: user_13
+[2026-08-11 01:58:09,743] INFO in queue_socket (Line 12): Client disconnected: 9dniOu59QqEBdi5mAAAL
+[2026-08-11 01:58:09,983] INFO in queue_socket (Line 8): Client connected: 2C4D5JpJv7v2w7ygAAAN
+[2026-08-11 01:58:10,000] INFO in queue_socket (Line 45): User 13 (Client 2C4D5JpJv7v2w7ygAAAN) joined personal room: user_13
+[2026-08-11 01:58:13,500] INFO in queue_socket (Line 12): Client disconnected: 2C4D5JpJv7v2w7ygAAAN
+[2026-08-11 01:58:13,779] INFO in queue_socket (Line 8): Client connected: P5s0JKKxKrxfTRDtAAAP
+[2026-08-11 01:58:13,797] INFO in queue_socket (Line 45): User 13 (Client P5s0JKKxKrxfTRDtAAAP) joined personal room: user_13
+[2026-08-11 01:58:13,806] INFO in queue_socket (Line 23): Client P5s0JKKxKrxfTRDtAAAP joined room: queue_1
+[2026-08-11 01:58:23,494] INFO in queue_socket (Line 12): Client disconnected: P5s0JKKxKrxfTRDtAAAP
+[2026-08-11 01:58:50,704] INFO in queue_socket (Line 8): Client connected: j1icmgFVNNNn9oZ9AAAR
+[2026-08-11 01:58:50,767] INFO in queue_socket (Line 45): User 13 (Client j1icmgFVNNNn9oZ9AAAR) joined personal room: user_13
+[2026-08-11 01:58:55,775] INFO in queue_socket (Line 12): Client disconnected: j1icmgFVNNNn9oZ9AAAR
+[2026-08-11 01:58:56,288] INFO in queue_socket (Line 8): Client connected: GL7PwRwAkmwsz2QgAAAT
+[2026-08-11 01:58:56,394] INFO in queue_socket (Line 45): User 13 (Client GL7PwRwAkmwsz2QgAAAT) joined personal room: user_13
+[2026-08-11 01:58:58,147] INFO in queue_socket (Line 12): Client disconnected: GL7PwRwAkmwsz2QgAAAT
+[2026-08-11 01:58:58,828] INFO in queue_socket (Line 8): Client connected: B2oGx1uNF-XzXIdWAAAV
+[2026-08-11 01:58:58,883] INFO in queue_socket (Line 45): User 13 (Client B2oGx1uNF-XzXIdWAAAV) joined personal room: user_13
+[2026-08-11 01:58:58,884] INFO in queue_socket (Line 23): Client B2oGx1uNF-XzXIdWAAAV joined room: queue_1
+[2026-08-11 01:59:05,866] INFO in queue_socket (Line 12): Client disconnected: B2oGx1uNF-XzXIdWAAAV
+[2026-08-11 01:59:05,957] INFO in api (Line 122): Token 13 cancelled via API
+[2026-08-11 01:59:15,246] INFO in queue_socket (Line 8): Client connected: ef3Zm_ZV8ZVu0-2_AAAX
+[2026-08-11 01:59:15,282] INFO in queue_socket (Line 45): User 13 (Client ef3Zm_ZV8ZVu0-2_AAAX) joined personal room: user_13
+[2026-08-11 01:59:15,284] INFO in queue_socket (Line 23): Client ef3Zm_ZV8ZVu0-2_AAAX joined room: queue_1
+[2026-08-11 02:16:25,374] INFO in queue_socket (Line 8): Client connected: 884ZqhWVvA2CTzt4AAAB
+[2026-08-11 02:16:25,385] INFO in queue_socket (Line 45): User 13 (Client 884ZqhWVvA2CTzt4AAAB) joined personal room: user_13
+[2026-08-11 02:16:30,131] INFO in queue_socket (Line 12): Client disconnected: 884ZqhWVvA2CTzt4AAAB
+[2026-08-11 02:16:30,446] INFO in queue_socket (Line 8): Client connected: ECn_qaZydMt_WFvjAAAD
+[2026-08-11 02:16:30,460] INFO in queue_socket (Line 45): User 13 (Client ECn_qaZydMt_WFvjAAAD) joined personal room: user_13
+[2026-08-11 02:19:53,049] INFO in queue_socket (Line 12): Client disconnected: ECn_qaZydMt_WFvjAAAD
+[2026-08-11 02:20:00,151] INFO in queue_socket (Line 8): Client connected: hPWCg752niwYz_pLAAAF
+[2026-08-11 02:20:00,358] INFO in queue_socket (Line 45): User 13 (Client hPWCg752niwYz_pLAAAF) joined personal room: user_13
+[2026-08-11 02:20:46,690] INFO in queue_socket (Line 12): Client disconnected: hPWCg752niwYz_pLAAAF
+[2026-08-11 02:20:46,922] INFO in queue_socket (Line 8): Client connected: W-cgErhM1s5lBn0wAAAH
+[2026-08-11 02:20:46,933] INFO in queue_socket (Line 45): User 13 (Client W-cgErhM1s5lBn0wAAAH) joined personal room: user_13
+[2026-08-11 02:20:49,285] INFO in queue_socket (Line 12): Client disconnected: W-cgErhM1s5lBn0wAAAH
+[2026-08-11 02:20:49,648] INFO in queue_socket (Line 8): Client connected: 5J8ZqAPgQkWuC7udAAAJ
+[2026-08-11 02:20:49,655] INFO in queue_socket (Line 45): User 13 (Client 5J8ZqAPgQkWuC7udAAAJ) joined personal room: user_13
+[2026-08-11 02:20:49,657] INFO in queue_socket (Line 23): Client 5J8ZqAPgQkWuC7udAAAJ joined room: queue_1
+[2026-08-11 02:20:53,489] INFO in queue_socket (Line 12): Client disconnected: 5J8ZqAPgQkWuC7udAAAJ
+[2026-08-11 02:20:53,579] INFO in api (Line 122): Token 14 cancelled via API
+[2026-08-11 02:21:04,960] INFO in queue_socket (Line 8): Client connected: sHqSyGxkE9DbAR__AAAL
+[2026-08-11 02:21:04,978] INFO in queue_socket (Line 45): User 13 (Client sHqSyGxkE9DbAR__AAAL) joined personal room: user_13
+[2026-08-11 02:21:04,981] INFO in queue_socket (Line 23): Client sHqSyGxkE9DbAR__AAAL joined room: queue_1
+[2026-08-11 02:24:23,441] INFO in queue_socket (Line 12): Client disconnected: sHqSyGxkE9DbAR__AAAL
+[2026-08-11 02:25:31,354] INFO in queue_socket (Line 8): Client connected: jwrqa2v5Wf9Y5zduAAAN
+[2026-08-11 02:25:31,650] INFO in queue_socket (Line 45): User 13 (Client jwrqa2v5Wf9Y5zduAAAN) joined personal room: user_13
+[2026-08-11 02:25:31,689] INFO in queue_socket (Line 23): Client jwrqa2v5Wf9Y5zduAAAN joined room: queue_1
+[2026-08-11 02:25:34,393] INFO in queue_socket (Line 12): Client disconnected: jwrqa2v5Wf9Y5zduAAAN
+[2026-08-11 02:25:39,218] INFO in queue_socket (Line 8): Client connected: qhY_rTwHc6xNEHSCAAAP
+[2026-08-11 02:25:39,238] INFO in queue_socket (Line 45): User 13 (Client qhY_rTwHc6xNEHSCAAAP) joined personal room: user_13
+[2026-08-11 02:25:39,240] INFO in queue_socket (Line 23): Client qhY_rTwHc6xNEHSCAAAP joined room: queue_1
+[2026-08-11 02:27:27,326] INFO in queue_socket (Line 12): Client disconnected: qhY_rTwHc6xNEHSCAAAP
+[2026-08-11 02:27:27,751] INFO in queue_socket (Line 8): Client connected: OHTtFEicFq9lid0AAAAR
+[2026-08-11 02:27:27,768] INFO in queue_socket (Line 45): User 13 (Client OHTtFEicFq9lid0AAAAR) joined personal room: user_13
+[2026-08-11 02:27:31,377] INFO in queue_socket (Line 12): Client disconnected: OHTtFEicFq9lid0AAAAR
+[2026-08-11 02:27:31,746] INFO in queue_socket (Line 8): Client connected: 7ydllOy59QFq-GqSAAAT
+[2026-08-11 02:27:31,765] INFO in queue_socket (Line 45): User 13 (Client 7ydllOy59QFq-GqSAAAT) joined personal room: user_13
+[2026-08-11 02:27:33,931] INFO in queue_socket (Line 12): Client disconnected: 7ydllOy59QFq-GqSAAAT
+[2026-08-11 02:27:34,294] INFO in queue_socket (Line 8): Client connected: cfmHGDfKCgjw5KDIAAAV
+[2026-08-11 02:27:34,314] INFO in queue_socket (Line 45): User 13 (Client cfmHGDfKCgjw5KDIAAAV) joined personal room: user_13
+[2026-08-11 02:27:34,320] INFO in queue_socket (Line 23): Client cfmHGDfKCgjw5KDIAAAV joined room: queue_1
+[2026-08-11 02:27:38,549] INFO in queue_socket (Line 12): Client disconnected: cfmHGDfKCgjw5KDIAAAV
+[2026-08-11 02:27:38,617] INFO in api (Line 122): Token 15 cancelled via API
+[2026-08-11 02:27:50,284] INFO in queue_socket (Line 8): Client connected: j0txV2ll37CpCdCBAAAX
+[2026-08-11 02:27:50,299] INFO in queue_socket (Line 45): User 13 (Client j0txV2ll37CpCdCBAAAX) joined personal room: user_13
+[2026-08-11 02:27:50,304] INFO in queue_socket (Line 23): Client j0txV2ll37CpCdCBAAAX joined room: queue_1
+[2026-08-11 02:30:52,228] INFO in queue_socket (Line 8): Client connected: 1aU0b9ckEB7ItZx-AAAB
+[2026-08-11 02:30:52,245] INFO in queue_socket (Line 45): User 13 (Client 1aU0b9ckEB7ItZx-AAAB) joined personal room: user_13
+[2026-08-11 02:30:52,246] INFO in queue_socket (Line 23): Client 1aU0b9ckEB7ItZx-AAAB joined room: queue_1
+[2026-08-11 02:31:12,211] INFO in queue_socket (Line 8): Client connected: RHgzwfCjSSj35fZ4AAAB
+[2026-08-11 02:31:12,227] INFO in queue_socket (Line 45): User 13 (Client RHgzwfCjSSj35fZ4AAAB) joined personal room: user_13
+[2026-08-11 02:31:12,236] INFO in queue_socket (Line 23): Client RHgzwfCjSSj35fZ4AAAB joined room: queue_1
+[2026-08-11 02:31:27,909] INFO in queue_socket (Line 8): Client connected: p0x6jGVXNL43Jnt5AAAD
+[2026-08-11 02:31:27,976] INFO in queue_socket (Line 45): User 13 (Client p0x6jGVXNL43Jnt5AAAD) joined personal room: user_13
+[2026-08-11 02:31:32,113] INFO in queue_socket (Line 12): Client disconnected: p0x6jGVXNL43Jnt5AAAD
+[2026-08-11 02:31:32,434] INFO in queue_socket (Line 8): Client connected: hWlOODjhFmUjtoGlAAAF
+[2026-08-11 02:31:32,455] INFO in queue_socket (Line 45): User 13 (Client hWlOODjhFmUjtoGlAAAF) joined personal room: user_13
+[2026-08-11 02:31:33,883] INFO in queue_socket (Line 12): Client disconnected: hWlOODjhFmUjtoGlAAAF
+[2026-08-11 02:31:34,183] INFO in queue_socket (Line 8): Client connected: Pp0wDzMkf4EeA5o0AAAH
+[2026-08-11 02:31:34,209] INFO in queue_socket (Line 45): User 13 (Client Pp0wDzMkf4EeA5o0AAAH) joined personal room: user_13
+[2026-08-11 02:31:34,212] INFO in queue_socket (Line 23): Client Pp0wDzMkf4EeA5o0AAAH joined room: queue_1
+[2026-08-11 02:31:38,344] INFO in queue_socket (Line 12): Client disconnected: Pp0wDzMkf4EeA5o0AAAH
+[2026-08-11 02:31:38,469] INFO in api (Line 122): Token 16 cancelled via API
+[2026-08-11 02:31:50,427] INFO in queue_socket (Line 8): Client connected: pBqALiAmMfbaMDEZAAAJ
+[2026-08-11 02:31:50,445] INFO in queue_socket (Line 45): User 13 (Client pBqALiAmMfbaMDEZAAAJ) joined personal room: user_13
+[2026-08-11 02:31:50,450] INFO in queue_socket (Line 23): Client pBqALiAmMfbaMDEZAAAJ joined room: queue_1
+[2026-08-11 02:32:46,871] INFO in queue_socket (Line 12): Client disconnected: RHgzwfCjSSj35fZ4AAAB
+[2026-08-11 02:32:48,893] INFO in queue_socket (Line 12): Client disconnected: pBqALiAmMfbaMDEZAAAJ
+[2026-08-11 02:32:49,183] INFO in queue_socket (Line 8): Client connected: bc-4aaKqsos2sgPQAAAL
+[2026-08-11 02:32:49,200] INFO in queue_socket (Line 45): User 13 (Client bc-4aaKqsos2sgPQAAAL) joined personal room: user_13
+[2026-08-11 02:33:16,285] INFO in queue_socket (Line 12): Client disconnected: bc-4aaKqsos2sgPQAAAL
+[2026-08-11 02:33:16,618] INFO in queue_socket (Line 8): Client connected: gKKARAmb8wSeG56gAAAN
+[2026-08-11 02:33:16,661] INFO in queue_socket (Line 45): User 13 (Client gKKARAmb8wSeG56gAAAN) joined personal room: user_13
+[2026-08-11 02:33:18,129] INFO in queue_socket (Line 12): Client disconnected: gKKARAmb8wSeG56gAAAN
+[2026-08-11 02:33:18,372] INFO in queue_socket (Line 8): Client connected: Q2N96PykmCFs3MBsAAAP
+[2026-08-11 02:33:18,389] INFO in queue_socket (Line 45): User 13 (Client Q2N96PykmCFs3MBsAAAP) joined personal room: user_13
+[2026-08-11 02:33:19,979] INFO in queue_socket (Line 12): Client disconnected: Q2N96PykmCFs3MBsAAAP
+[2026-08-11 02:33:20,596] INFO in queue_socket (Line 8): Client connected: jnv_i9_y1IEPm-NrAAAR
+[2026-08-11 02:33:20,645] INFO in queue_socket (Line 45): User 13 (Client jnv_i9_y1IEPm-NrAAAR) joined personal room: user_13
+[2026-08-11 02:33:20,648] INFO in queue_socket (Line 23): Client jnv_i9_y1IEPm-NrAAAR joined room: queue_1
+[2026-08-11 02:33:24,886] INFO in queue_socket (Line 12): Client disconnected: jnv_i9_y1IEPm-NrAAAR
+[2026-08-11 02:33:24,966] INFO in api (Line 122): Token 17 cancelled via API
+[2026-08-11 02:33:36,831] INFO in queue_socket (Line 8): Client connected: 7JQBiNVryI30B4jTAAAT
+[2026-08-11 02:33:36,846] INFO in queue_socket (Line 45): User 13 (Client 7JQBiNVryI30B4jTAAAT) joined personal room: user_13
+[2026-08-11 02:33:36,847] INFO in queue_socket (Line 23): Client 7JQBiNVryI30B4jTAAAT joined room: queue_1
+[2026-08-11 02:36:30,223] INFO in queue_socket (Line 8): Client connected: yrG0dY0ib8On7r9XAAAB
+[2026-08-11 02:36:30,240] INFO in queue_socket (Line 45): User 13 (Client yrG0dY0ib8On7r9XAAAB) joined personal room: user_13
+[2026-08-11 02:36:30,242] INFO in queue_socket (Line 23): Client yrG0dY0ib8On7r9XAAAB joined room: queue_1
+[2026-08-11 02:36:44,288] INFO in queue_socket (Line 8): Client connected: PZ4ShSsY2NgR4P0NAAAD
+[2026-08-11 02:36:44,358] INFO in queue_socket (Line 45): User 13 (Client PZ4ShSsY2NgR4P0NAAAD) joined personal room: user_13
+[2026-08-11 02:36:48,090] INFO in queue_socket (Line 12): Client disconnected: yrG0dY0ib8On7r9XAAAB
+[2026-08-11 02:36:50,236] INFO in queue_socket (Line 12): Client disconnected: PZ4ShSsY2NgR4P0NAAAD
+[2026-08-11 02:36:50,527] INFO in queue_socket (Line 8): Client connected: lJpJsDlrROJuX7h1AAAF
+[2026-08-11 02:36:50,546] INFO in queue_socket (Line 45): User 13 (Client lJpJsDlrROJuX7h1AAAF) joined personal room: user_13
+[2026-08-11 02:36:53,491] INFO in queue_socket (Line 12): Client disconnected: lJpJsDlrROJuX7h1AAAF
+[2026-08-11 02:36:53,761] INFO in queue_socket (Line 8): Client connected: KlLNPLElND_Bul6cAAAH
+[2026-08-11 02:36:53,781] INFO in queue_socket (Line 45): User 13 (Client KlLNPLElND_Bul6cAAAH) joined personal room: user_13
+[2026-08-11 02:36:55,511] INFO in queue_socket (Line 12): Client disconnected: KlLNPLElND_Bul6cAAAH
+[2026-08-11 02:36:55,965] INFO in queue_socket (Line 8): Client connected: BTkCKFB3EVn74NvxAAAJ
+[2026-08-11 02:36:55,978] INFO in queue_socket (Line 45): User 13 (Client BTkCKFB3EVn74NvxAAAJ) joined personal room: user_13
+[2026-08-11 02:36:55,980] INFO in queue_socket (Line 23): Client BTkCKFB3EVn74NvxAAAJ joined room: queue_1
+[2026-08-11 02:37:00,123] INFO in api (Line 122): Token 18 cancelled via API
+[2026-08-11 02:37:00,164] INFO in queue_socket (Line 12): Client disconnected: BTkCKFB3EVn74NvxAAAJ
+[2026-08-11 02:37:00,525] INFO in queue_socket (Line 8): Client connected: vuqW39GOVX-w6dQyAAAL
+[2026-08-11 02:37:00,536] INFO in queue_socket (Line 45): User 13 (Client vuqW39GOVX-w6dQyAAAL) joined personal room: user_13
+[2026-08-11 02:37:00,539] INFO in queue_socket (Line 23): Client vuqW39GOVX-w6dQyAAAL joined room: queue_1
+[2026-08-11 02:40:51,038] INFO in queue_socket (Line 12): Client disconnected: vuqW39GOVX-w6dQyAAAL
+[2026-08-11 02:40:51,332] INFO in queue_socket (Line 8): Client connected: __fYVFcOaqN9xM9zAAAN
+[2026-08-11 02:40:51,351] INFO in queue_socket (Line 45): User 13 (Client __fYVFcOaqN9xM9zAAAN) joined personal room: user_13
+[2026-08-11 02:41:01,813] INFO in queue_socket (Line 12): Client disconnected: __fYVFcOaqN9xM9zAAAN
+[2026-08-11 02:41:02,120] INFO in queue_socket (Line 8): Client connected: xhHxnU4SRFvB4fw-AAAP
+[2026-08-11 02:41:02,149] INFO in queue_socket (Line 45): User 13 (Client xhHxnU4SRFvB4fw-AAAP) joined personal room: user_13
+[2026-08-11 02:41:03,650] INFO in queue_socket (Line 12): Client disconnected: xhHxnU4SRFvB4fw-AAAP
+[2026-08-11 02:41:03,910] INFO in queue_socket (Line 8): Client connected: IFLFm_oLggRzWLqjAAAR
+[2026-08-11 02:41:03,931] INFO in queue_socket (Line 45): User 13 (Client IFLFm_oLggRzWLqjAAAR) joined personal room: user_13
+[2026-08-11 02:41:12,342] INFO in queue_socket (Line 12): Client disconnected: IFLFm_oLggRzWLqjAAAR
+[2026-08-11 02:41:12,830] INFO in queue_socket (Line 8): Client connected: RBeaYRZPJ73Fr5nmAAAT
+[2026-08-11 02:41:12,848] INFO in queue_socket (Line 45): User 13 (Client RBeaYRZPJ73Fr5nmAAAT) joined personal room: user_13
+[2026-08-11 02:41:35,020] INFO in queue_socket (Line 12): Client disconnected: RBeaYRZPJ73Fr5nmAAAT

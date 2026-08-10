@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+
+{% block title %}Token Details - WaitWise{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Breadcrumbs -->
+    <div class="mb-6 flex items-center space-x-2 text-sm text-slate-400">
+        <a href="{{ url_for('user.dashboard') }}" class="hover:text-white transition">Dashboard</a>
+        <i class="fa-solid fa-angle-right text-[10px]"></i>
+        <span>Token details</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Token Card Section -->
+        <div class="md:col-span-2 space-y-6">
+            <div
+                class="p-8 rounded-2xl glass-panel relative border border-brand-500/20 shadow-2xl custom-glow overflow-hidden">
+                <div class="absolute -right-20 -top-20 w-48 h-48 bg-brand-500/5 rounded-full blur-3xl"></div>
+
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span
+                            class="px-2.5 py-1 rounded-md text-xs font-semibold bg-brand-500/10 text-brand-400 uppercase border border-brand-500/20">
+                            <i class="fa-solid fa-receipt text-[10px] mr-1"></i> Digital Ticket
+                        </span>
+                        <h2 class="text-2xl font-bold text-white mt-3">{{ token.queue.name }}</h2>
+                        <p class="text-xs text-slate-400 mt-1">{{ token.queue.organization.name }} &bull; {{
+                            token.queue.service.name }}</p>
+                    </div>
+                    <div>
+                        {% set badge = 'bg-slate-900 border-slate-800 text-slate-400' %}
+                        {% if token.status == 'WAITING' %}
+                        {% set badge = 'bg-brand-500/10 border-brand-500/20 text-brand-400' %}
+                        {% elif token.status in ['CALLED', 'SERVING'] %}
+                        {% set badge = 'bg-emerald-950/40 border-emerald-900/60 text-emerald-400 animate-pulse' %}
+                        {% elif token.status == 'COMPLETED' %}
+                        {% set badge = 'bg-slate-900 border-slate-800 text-slate-500' %}
+                        {% elif token.status == 'CANCELLED' %}
+                        {% set badge = 'bg-red-950/40 border-red-900/60 text-red-400' %}
+                        {% endif %}
+                        <span id="token-status-badge"
+                            class="px-3 py-1 border text-xs font-bold rounded-full uppercase tracking-wider {{ badge }}">
+                            {{ token.status }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Live Metrics Display -->
+                <div class="grid grid-cols-2 gap-6 my-8 border-y border-slate-900 py-8">
+                    <div class="text-center p-6 bg-slate-950 border border-slate-900 rounded-2xl relative">
+                        <span class="text-xs text-slate-400 block mb-1">MY TOKEN</span>
+                        <span class="text-5xl font-extrabold text-brand-400 tracking-tight" id="token-number-display">{{
+                            token.formatted_token() }}</span>
+                    </div>
+
+                    <div class="text-center p-6 bg-slate-950 border border-slate-900 rounded-2xl relative">
+                        <span class="text-xs text-slate-400 block mb-1">CURRENTLY SERVING</span>
+                        <span class="text-5xl font-extrabold text-white tracking-tight" id="queue-serving-display">
+                            {% if token.queue.current_token_number > 0 %}
+                            T-{{ "%03d"|format(token.queue.current_token_number) }}
+                            {% else %}
+                            None
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <div class="text-center p-6 bg-slate-950 border border-slate-900 rounded-2xl relative">
+                        <span class="text-xs text-slate-400 block mb-1">PEOPLE AHEAD</span>
+                        <span class="text-5xl font-extrabold text-white tracking-tight" id="people-ahead-display">{{
+                            people_ahead }}</span>
+                    </div>
+
+                    <div class="text-center p-6 bg-slate-950 border border-slate-900 rounded-2xl relative">
+                        <span class="text-xs text-slate-400 block mb-1">ESTIMATED WAIT</span>
+                        <span class="text-5xl font-extrabold text-brand-400 tracking-tight"
+                            id="estimated-wait-display">{{ token.estimated_wait_minutes }} <span
+                                class="text-lg font-normal">min</span></span>
+                    </div>
+                </div>
+
+                <!-- Dynamic alert based on status -->
+                <div id="live-alert-box"
+                    class="p-4 rounded-xl border mb-6 text-sm flex items-center space-x-3 bg-brand-500/10 border-brand-500/20 text-brand-300">
+                    <i class="fa-solid fa-clock text-lg"></i>
+                    <span>This page updates automatically using real-time WebSockets. Do not refresh.</span>
+                </div>
+
+                {% if token.status in ['WAITING', 'CALLED', 'SERVING'] %}
+                <div class="flex justify-end pt-4">
+                    <button type="button" id="cancel-token-btn"
+                        class="bg-red-950/40 hover:bg-red-900/40 text-red-400 border border-red-900/60 font-semibold px-6 py-3 rounded-xl text-sm transition flex items-center space-x-2">
+                        <i class="fa-solid fa-ban"></i>
+                        <span>Cancel Digital Token</span>
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Safe details list -->
+            <div class="p-6 rounded-2xl glass-card border border-slate-900 shadow-lg text-sm space-y-3">
+                <h4 class="text-white font-bold mb-2">Ticket Specifications</h4>
+                <div class="flex justify-between py-2 border-b border-slate-900">
+                    <span class="text-slate-400">Created At</span>
+                    <span class="text-white">{{ token.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                </div>
+                {% if token.called_at %}
+                <div class="flex justify-between py-2 border-b border-slate-900">
+                    <span class="text-slate-400">Called At</span>
+                    <span class="text-white">{{ token.called_at.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                </div>
+                {% endif %}
+                <div class="flex justify-between py-2 border-b border-slate-900">
+                    <span class="text-slate-400">Ticket Holder</span>
+                    <span class="text-white">{{ token.user.name }}</span>
+                </div>
+                <div class="flex justify-between py-2">
+                    <span class="text-slate-400">Priority Tier</span>
+                    <span class="text-white">{% if token.priority > 0 %}High Priority{% else %}Standard{% endif
+                        %}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Contextual Help & AI widget -->
+        <div class="space-y-6">
+            <!-- AI Chatbot Assistant Widget -->
+            <div class="p-6 rounded-2xl glass-card border border-slate-900 shadow-xl flex flex-col h-[400px]">
+                <h3 class="text-lg font-bold text-white mb-3 flex items-center justify-between">
+                    <span class="flex items-center space-x-2">
+                        <i class="fa-solid fa-robot text-brand-500 text-sm"></i>
+                        <span>Ask WaitWise AI</span>
+                    </span>
+                </h3>
+
+                <!-- Chat messages log -->
+                <div id="ai-chat-messages" class="flex-grow overflow-y-auto mb-3 space-y-3 pr-1 text-xs">
+                    <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300">
+                        Ask about your wait times, queue delays, or counter information.
+                    </div>
+                </div>
+
+                <!-- Chat input -->
+                <form id="ai-chat-form" class="flex space-x-2">
+                    <input type="hidden" id="ai-token-id" value="{{ token.id }}">
+                    <input type="text" id="ai-chat-input" placeholder="Ask AI..."
+                        class="flex-grow bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 text-xs">
+                    <button type="submit"
+                        class="bg-brand-600 hover:bg-brand-500 text-white p-2.5 rounded-xl transition flex items-center justify-center">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const activeQueueId = {{ token.queue_id }};
+    const currentTokenId = {{ token.id }};
+
+    socket.on('connect', () => {
+        socket.emit('join_queue', { queue_id: activeQueueId });
+    });
+
+    socket.on('queue_updated', (data) => {
+        if (data.queue_id === activeQueueId) {
+            document.getElementById('queue-serving-display').innerText = data.current_serving;
+        }
+    });
+
+    // Handle updates for this specific token
+    function updateSelfDetails() {
+        fetch(`/api/tokens/${currentTokenId}`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    const data = res.data;
+                    document.getElementById('people-ahead-display').innerText = data.people_ahead;
+                    document.getElementById('estimated-wait-display').innerHTML = `${data.estimated_wait_minutes} <span class="text-lg font-normal">min</span>`;
+
+                    // Update badge
+                    const badge = document.getElementById('token-status-badge');
+                    badge.innerText = data.status;
+
+                    // If status changed to completed/cancelled/skipped, refresh to render corresponding HTML state
+                    if (data.status !== "{{ token.status }}") {
+                        window.location.reload();
+                    }
+                }
+            });
+    }
+
+    // Handle AJAX token cancellation
+    const cancelBtn = document.getElementById('cancel-token-btn');
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', async () => {
+            if (!confirm('Are you sure you want to cancel your digital token?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch("{{ url_for('api.cancel_queue_token', token_id=token.id) }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Failed to cancel token.');
+                }
+            } catch (err) {
+                console.error('Error cancelling token:', err);
+                alert('An error occurred while cancelling the token.');
+            }
+        });
+    }
+
+    // Connect individual token socket listeners
+    socket.on('token_called', (token) => {
+        if (token.id === currentTokenId) {
+            updateSelfDetails();
+            showCustomAlert("Your token has been CALLED! Proceed to counter.", "emerald");
+        }
+    });
+    socket.on('token_skipped', (token) => {
+        if (token.id === currentTokenId) {
+            updateSelfDetails();
+            showCustomAlert("Your token was SKIPPED.", "red");
+        }
+    });
+    socket.on('token_cancelled', (token) => {
+        if (token.id === currentTokenId) {
+            updateSelfDetails();
+        }
+    });
+    socket.on('token_completed', (token) => {
+        if (token.id === currentTokenId) {
+            updateSelfDetails();
+        }
+    });
+
+    function showCustomAlert(msg, type) {
+        const box = document.getElementById('live-alert-box');
+        if (box) {
+            box.className = `p-4 rounded-xl border mb-6 text-sm flex items-center space-x-3 bg-${type}-500/10 border-${type}-500/20 text-${type}-300`;
+            box.innerHTML = `<i class="fa-solid fa-bullhorn text-lg"></i><span>${msg}</span>`;
+        }
+    }
+
+    // Poll updates every 15 seconds as fallback
+    setInterval(updateSelfDetails, 15000);
+    updateSelfDetails();
+</script>
+<script src="{{ url_for('static', filename='js/ai.js') }}"></script>
+{% endblock %}
