@@ -1,3 +1,6 @@
+-import eventlet
+eventlet.monkey_patch()
+
 import os
 from app import create_app, socketio, db
 
@@ -14,4 +17,3 @@ if __name__ == '__main__':
     
     # Run the application with Socket.IO
     socketio.run(app, host=host, port=port, debug=app.debug)
-
